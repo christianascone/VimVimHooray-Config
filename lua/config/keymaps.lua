@@ -172,7 +172,7 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 --- CUSTOM ---
 local horizontalTerm = function()
-        require("nvterm.terminal").new "horizontal"
+        require("nvterm.terminal").toggle "horizontal"
       end
 map("n", "<leader>th", horizontalTerm, { desc = "Horizontal term" })
 
