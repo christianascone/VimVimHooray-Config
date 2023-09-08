@@ -54,7 +54,5 @@ _*Christian Ascone*_
 
 ---
 
-Copyright © 2023 [Christian Ascone](https://github.com/christianascone).
-
 License [Apache license 2.0](LICENSE).
 
