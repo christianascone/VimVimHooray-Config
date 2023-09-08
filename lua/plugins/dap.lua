@@ -26,6 +26,23 @@ return {
               name = "Listen for Xdebug",
               port = 9003,
             },
+            {
+              name = "Launch Built-in web server",
+              type = "php",
+              request = "launch",
+              program = "",
+              runtimeArgs = {
+                "spark",
+                "serve",
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+              },
+              env = {
+                XDEBUG_MODE = "debug",
+                XDEBUG_SESSION = "xdebug_is_great",
+              },
+              port = 9003,
+            },
           }
           require("mason-nvim-dap").default_setup(config) -- don't forget this!
         end,

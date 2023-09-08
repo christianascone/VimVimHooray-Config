@@ -182,6 +182,7 @@ map("n", "<leader>w+", "<C-W>v", { desc = "Split window right", remap = true })
 
 --- Nvim Dap ---
 map('n', '<F5>', function() require('dap').continue() end, { desc = "Debug"})
+map('n', '<leader>D', function() require('dapui').toggle() end, { desc = "Debug: toggle dashboard"})
 map('n', '<F10>', function() require('dap').step_over() end)
 map('n', '<F11>', function() require('dap').step_into() end)
 map('n', '<F12>', function() require('dap').step_out() end)
