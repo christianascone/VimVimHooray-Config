@@ -3,6 +3,12 @@ return {
     "mfussenegger/nvim-dap",
   },
   {
+    "rcarriga/nvim-dap-ui",
+    config = function()
+      require("dapui").setup()
+    end,
+  },
+  {
     "jay-babu/mason-nvim-dap.nvim",
     opts = {
       ensure_installed = { "php", "java" },
