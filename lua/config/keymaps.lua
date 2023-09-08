@@ -179,3 +179,10 @@ map("n", "<leader>th", horizontalTerm, { desc = "Horizontal term" })
 
 map("n", "<leader>+", "<C-W>v", { desc = "Split window right", remap = true })
 map("n", "<leader>w+", "<C-W>v", { desc = "Split window right", remap = true })
+
+--- Nvim Dap ---
+map('n', '<F5>', function() require('dap').continue() end, { desc = "Debug"})
+map('n', '<F10>', function() require('dap').step_over() end)
+map('n', '<F11>', function() require('dap').step_into() end)
+map('n', '<F12>', function() require('dap').step_out() end)
+map('n', '<Leader>B', function() require('dap').toggle_breakpoint() end, { desc = "Debug: toggle breakpoint"})
