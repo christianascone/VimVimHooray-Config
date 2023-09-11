@@ -27,7 +27,7 @@ return {
               port = 9003,
             },
             {
-              name = "Launch Built-in web server",
+              name = "Launch Built-in spark server",
               type = "php",
               request = "launch",
               program = "",
