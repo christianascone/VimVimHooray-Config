@@ -171,6 +171,13 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 
 --- CUSTOM ---
+map("n", "<S-Up>", ":m-2<cr>", { desc = "Move line up" })
+map("n", "<S-Up>", "<Esc>:m-2<cr>", { desc = "Move line up" })
+map("n", "<S-Down>", ":m+<cr>", { desc = "Move line down" })
+map("n", "<S-Down>", "<Esc>:m+<cr>", { desc = "Move line down" })
+
+
+--- NvTerm
 local horizontalTerm = function()
         require("nvterm.terminal").toggle "horizontal"
       end
