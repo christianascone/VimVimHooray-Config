@@ -175,6 +175,8 @@ map("n", "<S-Up>", ":m-2<cr>", { desc = "Move line up" })
 map("n", "<S-Up>", "<Esc>:m-2<cr>", { desc = "Move line up" })
 map("n", "<S-Down>", ":m+<cr>", { desc = "Move line down" })
 map("n", "<S-Down>", "<Esc>:m+<cr>", { desc = "Move line down" })
+map("n", "<C-S-K>", "{", { desc = "Move line down" })
+map("n", "<C-S-J>", "}", { desc = "Move line down" })
 
 
 --- NvTerm
