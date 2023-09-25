@@ -116,7 +116,32 @@ return {
                     -- disable progress updates.
                   end,
                 },
+                init_options = {
+                  bundles = {
+                    vim.fn.glob(
+                      "/Applications/LSPs/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.49.0.jar",
+                      true
+                    ),
+                  },
+                },
               }
+              -- config["on_attach"] = function(client, bufnr)
+              --   require("keymaps").map_java_keys(bufnr)
+              --   require("lsp_signature").on_attach({
+              --     bind = true, -- This is mandatory, otherwise border config won't get registered.
+              --     floating_window_above_cur_line = false,
+              --     padding = "",
+              --     handler_opts = {
+              --       border = "rounded",
+              --     },
+              --   }, bufnr)
+              -- end
+              config["on_attach"] = function(client, bufnr)
+                require("jdtls").setup_dap()
+              require("jdtls.dap").setup_dap_main_class_configs()
+              end
+
+              -- require("jdtls").setup_dap()
               require("jdtls").start_or_attach(config)
             end,
           })
