@@ -178,6 +178,8 @@ map("n", "<S-Down>", "<Esc>:m+<cr>", { desc = "Move line down" })
 map("n", "<C-S-K>", "{", { desc = "Move line down" })
 map("n", "<C-S-J>", "}", { desc = "Move line down" })
 
+--- DBUI
+map("n", "<leader>db", "<cmd>DBUIToggle<cr>", {desc = "DBUI Toggle" })
 
 --- NvTerm
 local horizontalTerm = function()
