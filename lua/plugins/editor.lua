@@ -95,7 +95,7 @@ return {
       { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
       -- find
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files no git (root dir)" },
+      { "<leader>ff", "<cmd>Telescope find_files no_ignore=true hidden=true<cr>", desc = "Find Files no git (root dir)" },
       { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       { "<leader>fR", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
