@@ -11,7 +11,7 @@ return {
   {
     "jay-babu/mason-nvim-dap.nvim",
     opts = {
-      ensure_installed = { "php", "java" },
+      ensure_installed = { "java", "php", "javadbg", "javatest" },
       handlers = {
         php = function(config)
           config.adapters = {
