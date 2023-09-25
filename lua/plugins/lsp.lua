@@ -2,8 +2,20 @@ return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      { "tpope/vim-dotenv" },
+    },
     ---@param opts PluginLspOpts
     config = function(_, opts)
+      local function callDotenv()
+        if vim.fn.filereadable(".env") == 1 then
+          vim.cmd("Dotenv .env")
+          vim.cmd("Dotenv")
+        end
+      end
+
+      callDotenv()
+
       opts.autoformat = false
       local Util = require("lazyvim.util")
 
