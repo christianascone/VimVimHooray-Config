@@ -4,6 +4,7 @@ return {
     dependencies = {
       { "tpope/vim-dadbod", lazy = true },
       { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+      { "tpope/vim-dotenv" },
     },
     cmd = {
       "DBUI",
@@ -17,6 +18,9 @@ return {
     end,
     config = function()
       local M = {}
+
+      -- Run Dotenv in order to read configuration strings
+      vim.cmd("Dotenv .dadbod_env")
 
       local function db_completion()
         require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
