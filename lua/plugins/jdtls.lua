@@ -125,20 +125,9 @@ return {
                   },
                 },
               }
-              -- config["on_attach"] = function(client, bufnr)
-              --   require("keymaps").map_java_keys(bufnr)
-              --   require("lsp_signature").on_attach({
-              --     bind = true, -- This is mandatory, otherwise border config won't get registered.
-              --     floating_window_above_cur_line = false,
-              --     padding = "",
-              --     handler_opts = {
-              --       border = "rounded",
-              --     },
-              --   }, bufnr)
-              -- end
               config["on_attach"] = function(client, bufnr)
                 require("jdtls").setup_dap()
-              require("jdtls.dap").setup_dap_main_class_configs()
+                require("jdtls.dap").setup_dap_main_class_configs()
               end
 
               -- require("jdtls").setup_dap()
