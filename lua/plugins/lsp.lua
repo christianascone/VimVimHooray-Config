@@ -4,12 +4,14 @@ return {
     "neovim/nvim-lspconfig",
     ---@param opts PluginLspOpts
     config = function(_, opts)
+      opts.autoformat = false
       local Util = require("lazyvim.util")
 
       if Util.has("neoconf.nvim") then
         local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
         require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
       end
+
       -- setup autoformat
       require("lazyvim.plugins.lsp.format").setup(opts)
       -- setup formatting and keymaps
