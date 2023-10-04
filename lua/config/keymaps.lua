@@ -164,10 +164,10 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
-map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader><tab><tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><S-Tab>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 
 --- CUSTOM ---
@@ -205,3 +205,17 @@ map('n', '<Leader>B', function() require('dap').toggle_breakpoint() end, { desc 
 map('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 map('n', '<Leader>dr', function() require('dap').repl.open() end)
 map('n', '<Leader>dl', function() require('dap').run_last() end)
+function searchAndReplace()
+  -- Prompt user for search string
+  local search = vim.fn.input("Enter search string: ")
+
+  -- Prompt user for replace string
+  local replace = vim.fn.input("Enter replacement string: ")
+
+  -- Escape search and replace strings to handle special characters
+  search = vim.fn.escape(search, '/\\') 
+  replace = vim.fn.escape(replace, '/\\') 
+
+  -- Perform search and replace operation in current buffer
+  vim.cmd("%s/" .. search .. "/" .. replace .. "/g")
+end
