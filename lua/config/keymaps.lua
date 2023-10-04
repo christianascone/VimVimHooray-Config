@@ -219,3 +219,5 @@ function searchAndReplace()
   -- Perform search and replace operation in current buffer
   vim.cmd("%s/" .. search .. "/" .. replace .. "/g")
 end
+
+map('n', '<leader>sr', searchAndReplace, { desc = "Search and replace"});
