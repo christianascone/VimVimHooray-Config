@@ -48,8 +48,14 @@ return {
                 vim.keymap.set(
                   "n",
                   "<leader>cf",
-                  "<cmd>lua vim.lsp.buf.formatting()<CR>",
+                  "<cmd>lua vim.lsp.buf.format()<CR>",
                   { buffer = buffer, desc = "Format" }
+                )
+                vim.keymap.set(
+                  "n",
+                  "<leader>cc",
+                  "<Cmd>lua require('jdtls').compile('full')<CR>",
+                  { buffer = buffer, desc = "Compile" }
                 )
               end)
 
