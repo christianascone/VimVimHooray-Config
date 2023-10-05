@@ -63,6 +63,17 @@ return {
               -- vim.lsp.set_log_level('DEBUG')
               -- TODO: Change with relative path
               local workspace_dir = "/Users/christianascone/.workspace/" .. project_name -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
+              local bundles = {
+                vim.fn.glob(
+                  "/Applications/LSPs/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.49.0.jar",
+                  true
+                ),
+              }
+              -- For test
+              vim.list_extend(
+                bundles,
+                vim.split(vim.fn.glob("/Applications/LSPs/vscode-java-test/server/*.jar", true), "\n")
+              )
               local config = {
                 -- The command that starts the language server
                 -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
@@ -123,12 +134,7 @@ return {
                   end,
                 },
                 init_options = {
-                  bundles = {
-                    vim.fn.glob(
-                      "/Applications/LSPs/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.49.0.jar",
-                      true
-                    ),
-                  },
+                  bundles = bundles,
                 },
               }
               config["on_attach"] = function(client, bufnr)
