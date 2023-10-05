@@ -227,4 +227,4 @@ function searchAndReplace()
   vim.cmd("%s/" .. search .. "/" .. replace .. "/g")
 end
 
-map('n', '<leader>sr', searchAndReplace, { desc = "Search and replace"});
+map('n', '<leader>sr', searchAndReplace, { desc = "Search and replace"})
