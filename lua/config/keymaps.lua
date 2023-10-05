@@ -205,6 +205,9 @@ map('n', '<Leader>B', function() require('dap').toggle_breakpoint() end, { desc 
 map('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 map('n', '<Leader>dr', function() require('dap').repl.open() end)
 map('n', '<Leader>dl', function() require('dap').run_last() end)
+map({'n', 'v'}, '<Leader>dp', function()
+  require('dap.ui.widgets').preview()
+end, { desc = "Debug preview" })
 function searchAndReplace()
   -- Prompt user for search string
   local search = vim.fn.input("Enter search string: ")
