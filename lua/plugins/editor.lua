@@ -304,6 +304,8 @@ If you rather use leap/flit instead, you can add the leap extra:
         ["<leader>q"] = { name = "+quit/session" },
         ["<leader>s"] = { name = "+search" },
         ["<leader>u"] = { name = "+ui" },
+        ["<leader>t"] = { name = "+terminal" },
+        ["<leader>T"] = { name = "+tasks" },
         ["<leader>w"] = { name = "+windows" },
         ["<leader>x"] = { name = "+diagnostics/quickfix" },
       },
