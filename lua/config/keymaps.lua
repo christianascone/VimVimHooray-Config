@@ -181,6 +181,10 @@ map("n", "<C-S-J>", "}", { desc = "Move line down" })
 --- DBUI
 map("n", "<leader>db", "<cmd>DBUIToggle<cr>", {desc = "DBUI Toggle" })
 
+--- Overseer
+map("n", "<leader>Tt", "<cmd>OverseerToggle<cr>", { desc = "Overseer Toggle"})
+map("n", "<leader>Tr", "<cmd>OverseerRun<cr>", { desc = "Overseer Run"})
+
 --- NvTerm
 local horizontalTerm = function()
         require("nvterm.terminal").toggle "horizontal"
