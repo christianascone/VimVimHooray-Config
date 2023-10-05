@@ -196,6 +196,12 @@ return {
             ["<C-b>"] = function(...)
               return require("telescope.actions").preview_scrolling_up(...)
             end,
+            ["<C-a>"] = function(...)
+              return require("telescope.actions").results_scrolling_left(...)
+            end,
+            ["<C-e>"] = function(...)
+              return require("telescope.actions").results_scrolling_right(...)
+            end,
           },
           n = {
             ["q"] = function(...)
