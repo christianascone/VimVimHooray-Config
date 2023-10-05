@@ -167,7 +167,7 @@ map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab><tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader><S-Tab>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><tab><S-Tab>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 
 --- CUSTOM ---
