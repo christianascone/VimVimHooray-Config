@@ -200,7 +200,13 @@ map("n", "<leader>+", "<C-W>v", { desc = "Split window right", remap = true })
 map("n", "<leader>w+", "<C-W>v", { desc = "Split window right", remap = true })
 
 --- Nvim Dap ---
-map('n', '<F5>', function() require('dap').continue() end, { desc = "Debug"})
+local dapContinue = function()
+  if vim.fn.filereadable('.vscode/launch.json') then
+    require('dap.ext.vscode').load_launchjs()
+  end
+  require('dap').continue()
+end
+map('n', '<F5>', dapContinue, { desc = "Debug"})
 map('n', '<leader>D', function() require('dapui').toggle() end, { desc = "Debug: toggle dashboard"})
 map('n', '<F10>', function() require('dap').step_over() end)
 map('n', '<F11>', function() require('dap').step_into() end)
