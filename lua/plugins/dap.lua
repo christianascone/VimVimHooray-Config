@@ -27,6 +27,25 @@ return {
               port = 9003,
             },
             {
+              name = "Launch Built-in server",
+              type = "php",
+              request = "launch",
+              program = "",
+              runtimeArgs = {
+                "-S",
+                "localhost:8000",
+                "-t",
+                "public",
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+              },
+              env = {
+                XDEBUG_MODE = "debug",
+                XDEBUG_SESSION = "xdebug_is_great",
+              },
+              port = 9003,
+            },
+            {
               name = "Launch Built-in spark server",
               type = "php",
               request = "launch",
