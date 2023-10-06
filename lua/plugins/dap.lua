@@ -23,11 +23,11 @@ return {
             {
               type = "php",
               request = "launch",
-              name = "Listen for Xdebug",
+              name = "(default) Listen for Xdebug",
               port = 9003,
             },
             {
-              name = "Launch Built-in server",
+              name = "(default) Launch Built-in server",
               type = "php",
               request = "launch",
               program = "",
@@ -46,7 +46,7 @@ return {
               port = 9003,
             },
             {
-              name = "Launch Built-in spark server",
+              name = "(default) Launch Built-in spark server",
               type = "php",
               request = "launch",
               program = "",
