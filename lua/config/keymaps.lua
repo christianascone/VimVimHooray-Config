@@ -177,6 +177,8 @@ map("n", "<S-Down>", ":m+<cr>", { desc = "Move line down" })
 map("n", "<S-Down>", "<Esc>:m+<cr>", { desc = "Move line down" })
 map("n", "<C-S-K>", "{", { desc = "Move line down" })
 map("n", "<C-S-J>", "}", { desc = "Move line down" })
+map("n", "<C-d>", "<C-d>zz", { desc = "Page down and center"});
+map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center"});
 
 --- DBUI
 map("n", "<leader>db", "<cmd>DBUIToggle<cr>", {desc = "DBUI Toggle" })
