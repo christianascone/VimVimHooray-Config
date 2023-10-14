@@ -5,11 +5,10 @@ if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=v10.5.0", lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
-
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    { import = "lazyvim.plugins" },
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
@@ -44,3 +43,7 @@ require("lazy").setup({
     },
   },
 })
+require("lazyvim").setup({
+        colorscheme = "catppuccin",
+})
+
