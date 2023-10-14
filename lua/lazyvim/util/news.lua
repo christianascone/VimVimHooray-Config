@@ -18,7 +18,7 @@ function M.setup()
       if not Config.json.data.news["NEWS.md"] then
         M.welcome()
       end
-      M.lazyvim(true)
+      -- M.lazyvim(true)
     end
     if Config.news.neovim then
       M.neovim(true)
@@ -30,13 +30,13 @@ function M.welcome()
   Util.info("Welcome to LazyVim!")
 end
 
-function M.changelog()
-  M.open("CHANGELOG.md", { plugin = "LazyVim" })
-end
+-- function M.changelog()
+--   M.open("CHANGELOG.md", { plugin = "LazyVim" })
+-- end
 
-function M.lazyvim(when_changed)
-  M.open("NEWS.md", { plugin = "LazyVim", when_changed = when_changed })
-end
+-- function M.lazyvim(when_changed)
+--   M.open("NEWS.md", { plugin = "LazyVim", when_changed = when_changed })
+-- end
 
 function M.neovim(when_changed)
   M.open("doc/news.txt", { rtp = true, when_changed = when_changed })
