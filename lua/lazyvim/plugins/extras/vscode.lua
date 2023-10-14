@@ -18,7 +18,6 @@ local enabled = {
 }
 
 local Config = require("lazy.core.config")
-local Plugin = require("lazy.core.plugin")
 Config.options.checker.enabled = false
 Config.options.change_detection.enabled = false
 Config.options.defaults.cond = function(plugin)
@@ -45,8 +44,8 @@ return {
   --     require("lazyvim").setup(opts)
   --   end,
   -- },
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   opts = { highlight = { enable = false } },
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = { highlight = { enable = false } },
+  },
 }

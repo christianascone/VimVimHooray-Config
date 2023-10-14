@@ -11,7 +11,7 @@ return {
       {
         "<leader>fe",
         function()
-          require("neo-tree.command").execute({ toggle = true, dir = require("lazyvim.util").get_root() })
+          require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
         end,
         desc = "Explorer NeoTree (root dir)",
       },
@@ -24,12 +24,26 @@ return {
       },
       { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
       { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+      {
+        "<leader>ge",
+        function()
+          require("neo-tree.command").execute({ source = "git_status", toggle = true })
+        end,
+        desc = "Git explorer",
+      },
+      {
+        "<leader>be",
+        function()
+          require("neo-tree.command").execute({ source = "buffers", toggle = true })
+        end,
+        desc = "Buffer explorer",
+      },
     },
     deactivate = function()
       vim.cmd([[Neotree close]])
     end,
     init = function()
-      if vim.fn.argc() == 1 then
+      if vim.fn.argc(-1) == 1 then
         local stat = vim.loop.fs_stat(vim.fn.argv(0))
         if stat and stat.type == "directory" then
           require("neo-tree")
@@ -60,7 +74,7 @@ return {
     },
     config = function(_, opts)
       local function on_move(data)
-        Util.on_rename(data.source, data.destination)
+        Util.lsp.on_rename(data.source, data.destination)
       end
 
       local events = require("neo-tree.events")
@@ -100,6 +114,18 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     version = false, -- telescope did only one release, so use HEAD for now
+    dependencies = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        enabled = vim.fn.executable("make") == 1,
+        config = function()
+          Util.on_load("telescope.nvim", function()
+            require("telescope").load_extension("fzf")
+          end)
+        end,
+      },
+    },
     keys = {
       { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
       { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
@@ -138,42 +164,20 @@ return {
       { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
       {
         "<leader>ss",
-        Util.telescope("lsp_document_symbols", {
-          symbols = {
-            "Class",
-            "Function",
-            "Method",
-            "Constructor",
-            "Interface",
-            "Module",
-            "Struct",
-            "Trait",
-            "Field",
-            "Property",
-            "Enum",
-            "Constant",
-          },
-        }),
+        function()
+          require("telescope.builtin").lsp_document_symbols({
+            symbols = require("lazyvim.config").get_kind_filter(),
+          })
+        end,
         desc = "Goto Symbol",
       },
       {
         "<leader>sS",
-        Util.telescope("lsp_dynamic_workspace_symbols", {
-          symbols = {
-            "Class",
-            "Function",
-            "Method",
-            "Constructor",
-            "Interface",
-            "Module",
-            "Struct",
-            "Trait",
-            "Field",
-            "Property",
-            "Enum",
-            "Constant",
-          },
-        }),
+        function()
+          require("telescope.builtin").lsp_dynamic_workspace_symbols({
+            symbols = require("lazyvim.config").get_kind_filter(),
+          })
+        end,
         desc = "Goto Symbol (Workspace)",
       },
     },
@@ -201,6 +205,19 @@ return {
         defaults = {
           prompt_prefix = " ",
           selection_caret = " ",
+          -- open files in the first window that is an actual file.
+          -- use the current window if no other window is available.
+          get_selection_window = function()
+            local wins = vim.api.nvim_list_wins()
+            table.insert(wins, 1, vim.api.nvim_get_current_win())
+            for _, win in ipairs(wins) do
+              local buf = vim.api.nvim_win_get_buf(win)
+              if vim.bo[buf].buftype == "" then
+                return win
+              end
+            end
+            return 0
+          end,
           mappings = {
             i = {
               ["<c-t>"] = open_with_trouble,
@@ -245,7 +262,7 @@ return {
     "nvim-telescope/telescope.nvim",
     optional = true,
     opts = function(_, opts)
-      if not require("lazyvim.util").has("flash.nvim") then
+      if not Util.has("flash.nvim") then
         return
       end
       local function flash(prompt_bufnr)
@@ -282,7 +299,7 @@ return {
       defaults = {
         mode = { "n", "v" },
         ["g"] = { name = "+goto" },
-        ["gz"] = { name = "+surround" },
+        ["gs"] = { name = "+surround" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
         ["<leader><tab>"] = { name = "+tabs" },
@@ -310,7 +327,7 @@ return {
   -- hunks in a commit.
   {
     "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = "LazyFile",
     opts = {
       signs = {
         add = { text = "▎" },
@@ -349,7 +366,7 @@ return {
   -- instances.
   {
     "RRethy/vim-illuminate",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "LazyFile",
     opts = {
       delay = 200,
       large_file_cutoff = 2000,
@@ -387,9 +404,27 @@ return {
   -- buffer remove
   {
     "echasnovski/mini.bufremove",
-    -- stylua: ignore
+
     keys = {
-      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+      {
+        "<leader>bd",
+        function()
+          local bd = require("mini.bufremove").delete
+          if vim.bo.modified then
+            local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+            if choice == 1 then -- Yes
+              vim.cmd.write()
+              bd(0)
+            elseif choice == 2 then -- No
+              bd(0, true)
+            end
+          else
+            bd(0)
+          end
+        end,
+        desc = "Delete Buffer",
+      },
+      -- stylua: ignore
       { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
     },
   },
@@ -440,7 +475,7 @@ return {
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    event = { "BufReadPost", "BufNewFile" },
+    event = "LazyFile",
     config = true,
     -- stylua: ignore
     keys = {

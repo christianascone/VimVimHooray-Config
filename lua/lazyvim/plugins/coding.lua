@@ -66,12 +66,17 @@ return {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<C-CR>"] = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "buffer" },
           { name = "path" },
+        }, {
+          { name = "buffer" },
         }),
         formatting = {
           format = function(_, item)
@@ -89,6 +94,13 @@ return {
         },
         sorting = defaults.sorting,
       }
+    end,
+    ---@param opts cmp.ConfigSchema
+    config = function(_, opts)
+      for _, source in ipairs(opts.sources) do
+        source.group_index = source.group_index or 1
+      end
+      require("cmp").setup(opts)
     end,
   },
 
@@ -140,13 +152,13 @@ return {
     end,
     opts = {
       mappings = {
-        add = "gza", -- Add surrounding in Normal and Visual modes
-        delete = "gzd", -- Delete surrounding
-        find = "gzf", -- Find surrounding (to the right)
-        find_left = "gzF", -- Find surrounding (to the left)
-        highlight = "gzh", -- Highlight surrounding
-        replace = "gzr", -- Replace surrounding
-        update_n_lines = "gzn", -- Update `n_lines`
+        add = "gsa", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
       },
     },
   },
@@ -179,7 +191,6 @@ return {
     --   { "i", mode = { "x", "o" } },
     -- },
     event = "VeryLazy",
-    dependencies = { "nvim-treesitter-textobjects" },
     opts = function()
       local ai = require("mini.ai")
       return {

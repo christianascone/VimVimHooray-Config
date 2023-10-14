@@ -31,12 +31,13 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup("last_loc"),
-  callback = function()
+  callback = function(event)
     local exclude = { "gitcommit" }
-    local buf = vim.api.nvim_get_current_buf()
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+    local buf = event.buf
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
       return
     end
+    vim.b[buf].lazyvim_last_loc = true
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
     local lcount = vim.api.nvim_buf_line_count(buf)
     if mark[1] > 0 and mark[1] <= lcount then
@@ -89,18 +90,5 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end
     local file = vim.loop.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
-
--- HACK: re-caclulate folds when entering a buffer through Telescope
--- @see https://github.com/nvim-telescope/telescope.nvim/issues/699
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = augroup("fix_folds"),
-  callback = function()
-    if vim.opt.foldmethod:get() == "expr" then
-      vim.schedule(function()
-        vim.opt.foldmethod = "expr"
-      end)
-    end
   end,
 })
