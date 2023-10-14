@@ -65,11 +65,11 @@ vim.opt.foldlevel = 99
 vim.opt.foldtext = "v:lua.require'lazyvim.util.ui'.foldtext()"
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-  vim.opt.foldmethod = "expr"
+  -- vim.opt.foldmethod = "expr"
   vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
   vim.opt.statuscolumn = [[%!v:lua.require'lazyvim.util.ui'.statuscolumn()]]
 else
-  vim.opt.foldmethod = "indent"
+  -- vim.opt.foldmethod = "indent"
 end
 
 -- Fix markdown indentation settings
