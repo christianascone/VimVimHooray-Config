@@ -222,6 +222,8 @@ map('n', '<Leader>dl', function() require('dap').run_last() end)
 map({'n', 'v'}, '<Leader>dp', function()
   require('dap.ui.widgets').preview()
 end, { desc = "Debug preview" })
+
+--- Custom functions ---
 function searchAndReplace()
   -- Prompt user for search string
   local search = vim.fn.input("Enter search string: ")
