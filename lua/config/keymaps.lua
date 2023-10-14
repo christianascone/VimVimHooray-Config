@@ -134,8 +134,6 @@ if vim.fn.has("nvim-0.9.0") == 1 then
   map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 end
 
--- LazyVim Changelog
-map("n", "<leader>L", Util.changelog, {desc = "LazyVim Changelog"})
 
 -- floating terminal
 local lazyterm = function() Util.float_term(nil, { cwd = Util.get_root() }) end
@@ -179,8 +177,8 @@ map("n", "<C-S-K>", "{zz", { desc = "Go previous white line" })
 map("n", "<C-S-J>", "}zz", { desc = "Go next white line" })
 map("n", "{", "{zz", { desc = "Go previous white line" })
 map("n", "}", "}zz", { desc = "Go next white line" })
-map("n", "<C-d>", "<C-d>zz", { desc = "Page down and center"});
-map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center"});
+map("n", "<C-d>", "<C-d>zz", { desc = "Page down and center"})
+map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center"})
 
 --- DBUI
 map("n", "<leader>db", "<cmd>DBUIToggle<cr>", {desc = "DBUI Toggle" })
