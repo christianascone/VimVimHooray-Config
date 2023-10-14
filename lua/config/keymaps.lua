@@ -224,7 +224,7 @@ map({'n', 'v'}, '<Leader>dp', function()
 end, { desc = "Debug preview" })
 
 --- Custom functions ---
-function searchAndReplace()
+local function searchAndReplace(mode)
   -- Prompt user for search string
   local search = vim.fn.input("Enter search string: ")
 
@@ -235,8 +235,14 @@ function searchAndReplace()
   search = vim.fn.escape(search, '/\\') 
   replace = vim.fn.escape(replace, '/\\') 
 
+  local modifier = mode == 'v' and "'<, '>" or '%'
   -- Perform search and replace operation in current buffer
-  vim.cmd("%s/" .. search .. "/" .. replace .. "/g")
+  vim.cmd(modifier .. "s/" .. search .. "/" .. replace .. "/g")
+end
+
+local function searchAndReplaceInSelection()
+  searchAndReplace('v')
 end
 
 map('n', '<leader>sr', searchAndReplace, { desc = "Search and replace"})
+map('v', '<leader>sr', searchAndReplaceInSelection, { desc = "Search and replace"})
