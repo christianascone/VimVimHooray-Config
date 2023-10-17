@@ -52,6 +52,12 @@ return {
       end
     end,
   },
+  -- virtual text for the debugger
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    opts = {},
+  },
+
   {
     "jay-babu/mason-nvim-dap.nvim",
     opts = {
