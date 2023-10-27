@@ -153,6 +153,7 @@ return {
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
           nls.builtins.formatting.xmlformat,
+          nls.builtins.formatting.phpcbf,
           -- nls.builtins.diagnostics.flake8,
         },
       }
