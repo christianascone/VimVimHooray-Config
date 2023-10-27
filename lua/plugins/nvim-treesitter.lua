@@ -9,6 +9,7 @@ return {
         "typescript",
         "java",
         "php",
+        "http", --- Needed for rest.nvim
       })
       opts.incremental_selection = {
         enable = true,

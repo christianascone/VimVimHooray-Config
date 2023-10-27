@@ -47,6 +47,7 @@
   "overseer.nvim": { "branch": "master", "commit": "781851948ebdac2aaa9a44399f341b877fdd307e" },
   "persistence.nvim": { "branch": "main", "commit": "4b8051c01f696d8849a5cb8afa9767be8db16e40" },
   "plenary.nvim": { "branch": "master", "commit": "9ce85b0f7dcfe5358c0be937ad23e456907d410b" },
+  "rest.nvim": { "branch": "main", "commit": "5bcaa1012ea8efd6093c69d2a4c67fbde760d043" },
   "telescope.nvim": { "branch": "master", "commit": "5a747a9587e4bfc4ae086a38cc679fe54f983b69" },
   "todo-comments.nvim": { "branch": "main", "commit": "3094ead8edfa9040de2421deddec55d3762f64d1" },
   "tokyonight.nvim": { "branch": "main", "commit": "4412dafadf920deb9e08d4b9c1c11b2cf65ca1ca" },
