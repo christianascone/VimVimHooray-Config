@@ -211,6 +211,7 @@ return {
         "flake8",
         "xmlformatter",
         "phpcbf",
+        "phpactor",
       },
     },
   },
