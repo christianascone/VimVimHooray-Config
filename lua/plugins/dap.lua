@@ -84,6 +84,23 @@ return {
                 runtimeArgs = {
                   "-S",
                   "localhost:8000",
+                  "-dxdebug.mode=debug",
+                  "-dxdebug.start_with_request=yes",
+                },
+                env = {
+                  XDEBUG_MODE = "debug",
+                  XDEBUG_SESSION = "xdebug_is_great",
+                },
+                port = 9003,
+              },
+              {
+                name = "(default) Launch Built-in server in public",
+                type = "php",
+                request = "launch",
+                program = "",
+                runtimeArgs = {
+                  "-S",
+                  "localhost:8000",
                   "-t",
                   "public",
                   "-dxdebug.mode=debug",
