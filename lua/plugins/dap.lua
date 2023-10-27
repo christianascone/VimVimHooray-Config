@@ -25,7 +25,7 @@ return {
           desc = "Dap UI",
         },
         {
-          "<leader>de",
+          "<leader>dE",
           function()
             require("dapui").eval()
           end,
