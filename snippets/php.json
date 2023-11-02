@@ -1,0 +1,16 @@
+{
+  "Log info": {
+    "prefix": "loginfo",
+    "body": [
+      "$$this->logger->info('${1:input}')"
+    ],
+    "description": "Log input using logger info method"
+  },
+  "Log error": {
+    "prefix": "loginfo",
+    "body": [
+      "$$this->logger->error('${1:input}')"
+    ],
+    "description": "Log input using logger error method"
+  }
+}
