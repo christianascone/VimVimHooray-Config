@@ -182,6 +182,9 @@ map("n", "}", "}zz", { desc = "Go next white line" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Page down and center"});
 map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center"});
 
+--- Rest
+map("n", "<leader>Rr", require("rest-nvim").run, { desc = "Rest: run" })
+
 --- DBUI
 map("n", "<leader>db", "<cmd>DBUIToggle<cr>", {desc = "DBUI Toggle" })
 
