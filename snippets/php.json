@@ -7,7 +7,7 @@
     "description": "Log input using logger info method"
   },
   "Log error": {
-    "prefix": "loginfo",
+    "prefix": "logerror",
     "body": [
       "$$this->logger->error('${1:input}')"
     ],
