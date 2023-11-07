@@ -12,5 +12,14 @@
       "$$this->logger->error('${1:input}')"
     ],
     "description": "Log input using logger error method"
+  },
+  "Foreach": {
+    "prefix": "foreach",
+    "body": [
+      "foreach($${1:collection} as $${2:key} => $${3:value}) {",
+      "    ${4}",
+      "}"
+    ],
+    "description": "Add foreach loop"
   }
 }
