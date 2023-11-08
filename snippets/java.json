@@ -1,0 +1,17 @@
+{
+  "Add logger for Spring": {
+    "prefix": "logger_add_spring",
+    "body": [
+      "private static final Logger logger = LoggerFactory.getLogger(${1:class}.class);"
+    ],
+    "description": "Add logger class for Spring project"
+  },
+    "Log info for Spring": {
+    "prefix": "loginfo_spring",
+    "body": [
+      "logger.info(\"${1:message}\");"
+    ],
+    "description": "Add info log"
+  }
+
+}
