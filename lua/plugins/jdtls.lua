@@ -136,8 +136,24 @@ return {
                 init_options = {
                   bundles = bundles,
                 },
+                -- These depend on nvim-dap, but can additionally be disabled by setting false here.
+                dap = { hotcodereplace = "auto", config_overrides = {} },
+                test = true,
               }
               config["on_attach"] = function(client, bufnr)
+                local function callDotenv()
+                  if vim.fn.filereadable(".env") == 1 then
+                    local ok, err = pcall(vim.cmd, "Dotenv .env")
+                    if not ok then
+                      vim.notify(err, vim.log.levels.ERROR)
+                    end
+
+                    vim.cmd("Dotenv")
+                  end
+                end
+
+                callDotenv()
+
                 require("jdtls").setup_dap()
                 require("jdtls.dap").setup_dap_main_class_configs()
               end
