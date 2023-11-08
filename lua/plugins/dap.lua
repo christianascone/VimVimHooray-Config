@@ -129,6 +129,22 @@ return {
                 },
                 port = 9003,
               },
+              {
+                name = "(default) Launch phpunit",
+                type = "php",
+                request = "launch",
+                program = "",
+                runtimeArgs = {
+                  "bin/phpunit",
+                  "-dxdebug.mode=debug",
+                  "-dxdebug.start_with_request=yes",
+                },
+                env = {
+                  XDEBUG_MODE = "debug",
+                  XDEBUG_SESSION = "xdebug_is_great",
+                },
+                port = 9003,
+              },
             }
             require("mason-nvim-dap").default_setup(config) -- don't forget this!
           end,
