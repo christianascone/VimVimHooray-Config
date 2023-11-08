@@ -201,6 +201,7 @@ local verticalTerm = function()
         require("nvterm.terminal").toggle "vertical"
       end
 map("n", "<leader>tv", verticalTerm, { desc = "Vertical term" })
+map("n", "<leader>tX", function() require("nvterm.terminal").close_all_terms() end, { desc = "Close all terms" })
 
 
 map("n", "<leader>+", "<C-W>v", { desc = "Split window right", remap = true })
