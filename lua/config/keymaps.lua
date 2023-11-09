@@ -235,8 +235,8 @@ local function searchAndReplace(mode)
   local replace = vim.fn.input("Enter replacement string: ")
 
   -- Escape search and replace strings to handle special characters
-  search = vim.fn.escape(search, '/\\') 
-  replace = vim.fn.escape(replace, '/\\') 
+  search = vim.fn.escape(search, '/\\')
+  replace = vim.fn.escape(replace, '/\\')
 
   local modifier = mode == 'v' and "'<, '>" or '%'
   -- Perform search and replace operation in current buffer
