@@ -247,5 +247,20 @@ local function searchAndReplaceInSelection()
   searchAndReplace('v')
 end
 
+local function searchCopyMultiLine(mode)
+  local search = vim.fn.input("Enter search string: ")
+  search = vim.fn.escape(search, '/\\')
+
+  local modifier = mode == 'v' and "'<, '>" or ''
+  vim.cmd("let @a=''")
+  vim.cmd(modifier .. "g/" .. search .. "/y A")
+end
+
+local function searchCopyMultiLineInSelection()
+  searchCopyMultiLine('v')
+end
+
 map('n', '<leader>sr', searchAndReplace, { desc = "Search and replace"})
 map('v', '<leader>sr', searchAndReplaceInSelection, { desc = "Search and replace"})
+map('n', '<leader>smy', searchCopyMultiLine, { desc = "Search and yank on multiple lines"})
+map('v', '<leader>smy', searchCopyMultiLineInSelection, { desc = "Search and yank on multiple lines"})
