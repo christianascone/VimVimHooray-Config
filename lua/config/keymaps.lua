@@ -179,8 +179,8 @@ map("n", "<C-S-K>", "{zz", { desc = "Go previous white line" })
 map("n", "<C-S-J>", "}zz", { desc = "Go next white line" })
 map("n", "{", "{zz", { desc = "Go previous white line" })
 map("n", "}", "}zz", { desc = "Go next white line" })
-map("n", "<C-d>", "<C-d>zz", { desc = "Page down and center"});
-map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center"});
+map("n", "<C-d>", "<C-d>zz", { desc = "Page down and center"})
+map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center"})
 
 --- Rest
 map("n", "<leader>Rr", require("rest-nvim").run, { desc = "Rest: run" })
