@@ -1,4 +1,11 @@
 {
+  "this": {
+    "prefix": "this",
+    "body": [
+      "$$this->${1:input}"
+    ],
+    "description": "Call $this->"
+  },
   "Log info": {
     "prefix": "loginfo",
     "body": [
