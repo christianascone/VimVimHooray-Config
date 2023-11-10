@@ -248,7 +248,7 @@ local function searchAndReplaceInSelection()
 end
 
 map('n', '<leader>sr', searchAndReplace, { desc = "Search and replace"})
-map('v', '<leader>sr', searchAndReplaceInSelection, { desc = "Search and replace"})
+map('v', '<leader>sr', searchAndReplaceInSelection, { desc = "Search and replace (selection)"})
 
 local function searchCopyMultiLine(mode)
   local search = vim.fn.input("Enter search string: ")
@@ -264,7 +264,7 @@ local function searchCopyMultiLineInSelection()
 end
 
 map('n', '<leader>smy', searchCopyMultiLine, { desc = "Search and yank on multiple lines"})
-map('v', '<leader>smy', searchCopyMultiLineInSelection, { desc = "Search and yank on multiple lines"})
+map('v', '<leader>smy', searchCopyMultiLineInSelection, { desc = "Search and yank on multiple lines (selection)"})
 
 local function pasteMultiLine(mode)
   vim.cmd("pu A")
