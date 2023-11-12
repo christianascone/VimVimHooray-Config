@@ -1,4 +1,11 @@
 {
+  "Constructor": {
+    "prefix": "construct",
+    "body": [
+      "public function __construct() {${1}}"
+    ],
+    "description": "Class constructor"
+  },
   "this": {
     "prefix": "this",
     "body": [
