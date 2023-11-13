@@ -55,6 +55,8 @@ opt.fillchars = {
   diff = "╱",
   eob = " ",
 }
+opt.exrc = true
+opt.secure = true
 
 if vim.fn.has("nvim-0.10") == 1 then
   opt.smoothscroll = true
