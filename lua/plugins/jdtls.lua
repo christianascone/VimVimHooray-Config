@@ -1,3 +1,4 @@
+local CustomUtil = require("config.util")
 return {
   {
     "neovim/nvim-lspconfig",
@@ -140,18 +141,7 @@ return {
                 test = true,
               }
               config["on_attach"] = function(client, bufnr)
-                local function callDotenv()
-                  if vim.fn.filereadable(".env") == 1 then
-                    local ok, err = pcall(vim.cmd, "Dotenv .env")
-                    if not ok then
-                      vim.notify(err, vim.log.levels.ERROR)
-                    end
-
-                    vim.cmd("Dotenv")
-                  end
-                end
-
-                callDotenv()
+                CustomUtil.callDotenv()
 
                 require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
                 require("jdtls.dap").setup_dap_main_class_configs()
