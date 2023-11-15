@@ -137,7 +137,6 @@ return {
                   bundles = bundles,
                 },
                 -- These depend on nvim-dap, but can additionally be disabled by setting false here.
-                dap = { hotcodereplace = "auto", config_overrides = {} },
                 test = true,
               }
               config["on_attach"] = function(client, bufnr)
@@ -154,7 +153,7 @@ return {
 
                 callDotenv()
 
-                require("jdtls").setup_dap()
+                require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
                 require("jdtls.dap").setup_dap_main_class_configs()
               end
 
