@@ -263,11 +263,11 @@ local function searchCopyMultiLineInSelection()
   searchCopyMultiLine('v')
 end
 
-map('n', '<leader>smy', searchCopyMultiLine, { desc = "Search and yank on multiple lines"})
-map('v', '<leader>smy', searchCopyMultiLineInSelection, { desc = "Search and yank on multiple lines (selection)"})
+map('n', '<leader>msy', searchCopyMultiLine, { desc = "Search and yank on multiple lines"})
+map('v', '<leader>msy', searchCopyMultiLineInSelection, { desc = "Search and yank on multiple lines (selection)"})
 
 local function pasteMultiLine(mode)
   vim.cmd("pu A")
 end
 
-map('n', '<leader>smp', pasteMultiLine, { desc = "Paste yanked multiple lines"})
+map('n', '<leader>msp', pasteMultiLine, { desc = "Paste yanked multiple lines"})
