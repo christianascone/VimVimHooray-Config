@@ -210,7 +210,7 @@ return {
         "shfmt",
         "flake8",
         "xmlformatter",
-        "phpcbf",
+        "php-cs-fixer",
         "phpactor",
       },
     },
