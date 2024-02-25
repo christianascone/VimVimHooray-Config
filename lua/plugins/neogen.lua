@@ -9,6 +9,8 @@ return {
         enabled = true,
         languages = {
           ["java.javadoc"] = require("neogen.configurations.java"),
+          ["javascript.jsdoc"] = require("neogen.configurations.javascript"),
+          ["typescript.jsdoc"] = require("neogen.configurations.typescript"),
         },
       })
     end,
