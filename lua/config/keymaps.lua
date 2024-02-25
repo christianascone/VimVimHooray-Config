@@ -208,6 +208,10 @@ map("n", "<leader>tn", function() require("nvterm.terminal").new('horizontal') e
 map("n", "<leader>+", "<C-W>v", { desc = "Split window right", remap = true })
 map("n", "<leader>w+", "<C-W>v", { desc = "Split window right", remap = true })
 
+-- Neogen
+map("n", "<leader>cnf", function() vim.cmd('Neogen func') end, { desc = "[N]eogen [f]unc", remap = true })
+map("n", "<leader>cnc", function() vim.cmd('Neogen class') end, { desc = "[N]eogen [c]lass", remap = true })
+
 --- Nvim Dap ---
 local dapContinue = function()
   if vim.fn.filereadable('.vscode/launch.json') then
