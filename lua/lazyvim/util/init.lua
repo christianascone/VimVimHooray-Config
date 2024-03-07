@@ -119,6 +119,8 @@ function M.telescope(builtin, opts)
       end
     end
 
+    opts.debounce = 200
+
     require("telescope.builtin")[builtin](opts)
   end
 end
