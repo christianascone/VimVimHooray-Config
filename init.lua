@@ -278,7 +278,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -324,6 +324,8 @@ vim.o.termguicolors = true
 
 -- Show tilde as spaces
 vim.cmd(":hi NonText guifg=bg")
+
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
