@@ -46,3 +46,6 @@ require("lazy").setup({
 require("lazyvim").setup({
   colorscheme = "catppuccin",
 })
+require("lazyvim").setup({
+  colorscheme = "night-owl",
+})

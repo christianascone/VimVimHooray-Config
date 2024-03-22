@@ -1,4 +1,5 @@
 return {
+  { "oxfist/night-owl.nvim", lazy = true, name = "night-owl" },
   {
     "catppuccin/nvim",
     lazy = true,
