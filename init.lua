@@ -201,12 +201,11 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'oxfist/night-owl.nvim',
+    'catppuccin/nvim',
     priority = 1000,
     lazy = false,
-    config = function()
-        vim.cmd.colorscheme("night-owl")
+    config = function(_)
+      vim.cmd.colorscheme "catppuccin"
     end,
   },
 
