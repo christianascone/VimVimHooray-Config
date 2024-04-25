@@ -140,8 +140,10 @@ return {
                 -- These depend on nvim-dap, but can additionally be disabled by setting false here.
                 test = true,
               }
-              config["on_attach"] = function(client, bufnr)
+              config["on_init"] = function(client, bufnr)
                 CustomUtil.callDotenv()
+              end
+              config["on_attach"] = function(client, bufnr)
 
                 require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
                 require("jdtls.dap").setup_dap_main_class_configs()
