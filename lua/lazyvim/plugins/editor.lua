@@ -199,6 +199,7 @@ return {
 
       return {
         defaults = {
+          file_ignore_patterns = { "node_modules", ".git"},
           prompt_prefix = " ",
           selection_caret = " ",
           mappings = {
