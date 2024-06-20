@@ -35,5 +35,12 @@
       "}"
     ],
     "description": "Add foreach loop"
+  },
+  "VarDoc": {
+    "prefix": "vardoc",
+    "body": [
+      "/* @var ${1:Class} $${2:variable} */"
+    ],
+    "description": "Class constructor"
   }
 }
