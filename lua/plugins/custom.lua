@@ -209,7 +209,7 @@ return {
         "shellcheck",
         "shfmt",
         "flake8",
-        "xmlformatter",
+        "lemminx",
         "php-cs-fixer",
         "phpactor",
       },
