@@ -139,8 +139,9 @@ return {
           nls.builtins.diagnostics.fish,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
-          nls.builtins.formatting.prettier,
+          nls.builtins.formatting.prettierd,
           nls.builtins.formatting.phpcsfixer,
+          nls.builtins.formatting.blade_formatter,
           -- nls.builtins.diagnostics.flake8,
         },
       }
