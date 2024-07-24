@@ -278,3 +278,6 @@ local function pasteMultiLine(mode)
 end
 
 map('n', '<leader>msp', pasteMultiLine, { desc = "Paste yanked multiple lines"})
+
+-- Supermaven
+map('n', '<leader>cS', function() require("supermaven-nvim") end, { desc = "Enable Supermaven"})
