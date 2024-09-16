@@ -1,2 +1,77 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
+-- Set custom path for Neovim data (including where lazy.nvim will store plugins)
+vim.env.XDG_DATA_HOME = '/Users/christianascone/.config/nvim_scratch_config'
+
+-- Basic Neovim Options
+vim.opt.number = true -- Show line numbers
+vim.opt.relativenumber = true -- Relative line numbers
+vim.opt.tabstop = 4 -- A tab is four spaces
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4 -- When indenting with '>', use 4 spaces width
+vim.opt.expandtab = true -- On pressing tab, insert 4 spaces
+vim.opt.smarttab = true -- Makes tabbing smarter
+vim.opt.autoindent = true -- Good auto indent
+vim.opt.smartindent = true -- Makes indenting smart
+vim.opt.wrap = false -- No Wrap lines
+vim.opt.backspace = 'indent,eol,start' -- Allow backspace over everything in insert mode
+vim.opt.hidden = true -- Required to keep multiple buffers open
+vim.opt.hlsearch = true -- Highlight search results
+vim.opt.incsearch = true -- Makes search act like search in modern browsers
+vim.opt.ignorecase = true -- Ignore case when searching
+vim.opt.smartcase = true -- When searching try to be smart about cases 
+vim.opt.splitbelow = true -- Horizontal splits will automatically be below
+vim.opt.splitright = true -- Vertical splits will automatically be to the right
+vim.opt.termguicolors = true -- Enable 24-bit RGB color in the TUI
+vim.opt.clipboard = 'unnamedplus' -- Use system clipboard
+
+-- Install lazy.nvim if not already installed
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Setup lazy.nvim
+require("lazy").setup({
+  -- Your plugins will go here. Example:
+  -- {'preservim/nerdtree', config = function() vim.cmd('nnoremap <C-n> :NERDTreeToggle<CR>') end},
+{
+  "catppuccin/nvim",
+  name = "catppuccin",
+  config = function()
+    vim.cmd.colorscheme "catppuccin"
+  end
+},
+{
+    "supermaven-inc/supermaven-nvim",
+    lazy = true,
+    config = function()
+      require("supermaven-nvim").setup({
+        keymaps = {
+          accept_suggestion = "<C-j>",
+          clear_suggestion = "<C-]>",
+          accept_word = "<C-.>",
+        },
+      })
+    end,
+  }
+})
+
+-- Supermaven
+map('n', '<leader>cS', function() require("supermaven-nvim") end, { desc = "Enable Supermaven"})
+
+
+
+-- Highlight code when yanking
+vim.cmd [[
+  augroup highlight_yank
+  autocmd!
+  au TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=150})
+  augroup END
+]]
