@@ -1,5 +1,6 @@
 -- Set custom path for Neovim data (including where lazy.nvim will store plugins)
-vim.env.XDG_DATA_HOME = '/Users/christianascone/.config/nvim_scratch_config'
+local custom_path = os.getenv("XDG_DATA_HOME")
+vim.env.XDG_DATA_HOME = custom_path
 
 -- Basic Neovim Options
 vim.g.mapleader = ' ' -- Leader as SPACE
