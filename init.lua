@@ -63,6 +63,19 @@ require("lazy").setup({
       })
     end,
   },
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    config = function()
+      require("nvim-tree").setup({
+        view = {
+          width = 30,
+          side = "right",
+        },
+      })
+    end,
+  },
 })
 
 -- Shortend for keymap
@@ -84,6 +97,8 @@ end
 map("n", "<leader>cS", function()
   require("supermaven-nvim")
 end, { desc = "Enable Supermaven" })
+-- Key mapping to toggle nvim-tree
+map("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle Nvim tree" })
 
 -- Highlight code when yanking
 vim.cmd([[
