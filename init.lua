@@ -2,6 +2,7 @@
 vim.env.XDG_DATA_HOME = '/Users/christianascone/.config/nvim_scratch_config'
 
 -- Basic Neovim Options
+vim.g.mapleader = ' ' -- Leader as SPACE
 vim.opt.number = true -- Show line numbers
 vim.opt.relativenumber = true -- Relative line numbers
 vim.opt.tabstop = 4 -- A tab is four spaces
