@@ -142,6 +142,7 @@ return {
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.phpcsfixer,
           nls.builtins.formatting.blade_formatter,
+          nls.builtins.formatting.pint,
           -- nls.builtins.diagnostics.flake8,
         },
       }
