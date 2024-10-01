@@ -94,7 +94,7 @@ return {
                 port = 9003,
               },
               {
-                name = "(default) Launch Built-in server in public",
+                name = "(default) Launch Built-in server in public (laravel/symfony)",
                 type = "php",
                 request = "launch",
                 program = "",
@@ -107,7 +107,7 @@ return {
                 port = 9003,
               },
               {
-                name = "(default) Launch Built-in server in public with debugger",
+                name = "(default) Launch Built-in server in public (laravel/symfony) with debugger",
                 type = "php",
                 request = "launch",
                 program = "",
