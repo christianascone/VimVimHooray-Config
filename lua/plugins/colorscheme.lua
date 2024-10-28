@@ -1,16 +1,10 @@
 return {
-  { "oxfist/night-owl.nvim", lazy = true, name = "night-owl" },
   {
     "catppuccin/nvim",
     lazy = true,
     name = "catppuccin",
     config = function(_, opts)
-      opts.color_overrides = {
-        mocha = {
-          base = "#011627", -- Background as night-owl Background
-          mantle = "#011627", -- Mantle as night-owl Background
-        },
-      }
+      opts.color_overrides = {}
       require("catppuccin").setup(opts)
     end,
     opts = {
