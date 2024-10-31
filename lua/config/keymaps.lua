@@ -280,4 +280,13 @@ end
 map('n', '<leader>msp', pasteMultiLine, { desc = "Paste yanked multiple lines"})
 
 -- Supermaven
-map('n', '<leader>cS', function() require("supermaven-nvim") end, { desc = "Enable Supermaven"})
+map('n', '<leader>cS', function()
+  require("lazy").load({plugins = {'supermaven-nvim'}})
+  vim.notify('Supermaven loaded', vim.log.levels.INFO)
+end, { desc = "Enable Supermaven"})
+
+-- Codeium
+map('n', '<leader>cC', function()
+  require("lazy").load({plugins = {'codeium.vim'}})
+  vim.notify('Codeium loaded', vim.log.levels.INFO)
+end, { desc = "Enable Codeium"})
