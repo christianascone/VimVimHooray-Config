@@ -212,6 +212,9 @@ return {
             ["q"] = function(...)
               return require("telescope.actions").close(...)
             end,
+            ["<S-Enter>"] = function(...)
+              return require("telescope.actions").send_selected_to_qflist(...) + require("telescope.actions").open_qflist(...)
+            end,
           },
         },
       },
