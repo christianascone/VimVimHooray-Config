@@ -341,6 +341,40 @@ require("lazy").setup({
     end,
   },
   {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.8",
+    dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          -- Default configuration for telescope goes here:
+          -- set layout, previewer, etc.
+          layout_strategy = "vertical",
+          layout_config = { width = 0.8 },
+          file_ignore_patterns = { "node_modules" },
+        },
+        pickers = {
+          -- Default configuration for builtin pickers goes here:
+          -- picker_name = {
+          --   picker_config_key = value,
+          --   ...
+          -- }
+          -- Now the picker_config_key will be applied every time you call this
+          -- builtin picker
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+          },
+        },
+        require("telescope").load_extension("fzf"),
+      })
+    end,
+  },
+  {
     "akinsho/toggleterm.nvim",
     version = "*",
     config = function()
@@ -519,6 +553,13 @@ end, { desc = "Toggle terminal (vertical)" })
 map("n", "<leader>gg", function()
   lazygitToggle()
 end, { noremap = true, silent = true, desc = "Toggle Lazygit" })
+
+-- Telescope
+local builtin = require("telescope.builtin")
+map("n", "<leader>ff", builtin.find_files, {})
+map("n", "<leader><space>", builtin.git_files, {})
+map("n", "<leader>/", builtin.live_grep, {})
+map("n", "<leader>,", builtin.buffers, {})
 
 -- Highlight code when yanking
 vim.cmd([[
