@@ -447,6 +447,28 @@ require("lazy").setup({
   },
 })
 
+-- Custom function for opening lazygit in a floating window
+local function lazygitToggle()
+  local Terminal = require("toggleterm.terminal").Terminal
+  local lazygit = Terminal:new({
+    cmd = "lazygit",
+    dir = "git_dir", -- or whatever directory you want to open lazygit in, if not current dir
+    direction = "float",
+    float_opts = {
+      width = math.floor(vim.o.columns * 0.9),
+      height = math.floor(vim.o.lines * 0.9),
+    },
+    -- function to run on opening the terminal
+    on_open = function(term)
+      vim.cmd("startinsert!")
+    end,
+    -- close the terminal window when the process exits
+    close_on_exit = true,
+  })
+
+  lazygit:toggle()
+end
+
 -- Shortend for keymap
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
@@ -492,6 +514,11 @@ end, { desc = "Toggle terminal (horizontal)" })
 map("n", "<leader>tv", function()
   vim.cmd("ToggleTerm direction=vertical")
 end, { desc = "Toggle terminal (vertical)" })
+
+-- Lazygit
+map("n", "<leader>gg", function()
+  lazygitToggle()
+end, { noremap = true, silent = true, desc = "Toggle Lazygit" })
 
 -- Highlight code when yanking
 vim.cmd([[
