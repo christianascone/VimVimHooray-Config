@@ -153,17 +153,20 @@ require("lazy").setup({
     },
   },
   {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    lazy = false,
-    config = function()
-      require("nvim-tree").setup({
-        view = {
-          width = 30,
-          side = "right",
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    opts = {
+      window = {
+        position = "right",
+      },
+      filesystem = {
+        filtered_items = {
+          visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+          hide_dotfiles = false,
+          hide_gitignored = true,
         },
-      })
-    end,
+      },
+    },
   },
   -- icons
   { "nvim-tree/nvim-web-devicons", lazy = true },
@@ -411,9 +414,90 @@ require("lazy").setup({
         float_opts = {
           border = "curved",
           winblend = 3,
-          highlights = {
-            border = "Normal",
-            background = "Normal",
+          highlights = {},
+        },
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      -- For additional functionality like textobjects for selection
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        -- A list of parsers you want to ensure are installed (sync with :TSInstall)
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "python", "java", "php" },
+
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
+
+        -- Automatically install missing parsers when entering buffer
+        auto_install = true,
+
+        -- List of parsers to ignore installing (for "all")
+        ignore_install = {},
+
+        highlight = {
+          -- `false` will disable the whole extension
+          enable = true,
+
+          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+          -- Using this option may slow down your editor, and you may see some duplicate highlights.
+          -- Instead of true it can also be a list of languages
+          additional_vim_regex_highlighting = false,
+        },
+
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<CR>", -- Enter key for initial selection
+            node_incremental = "<Tab>", -- Tab key to expand selection
+            scope_incremental = "<S-Tab>", -- Shift-Tab to go to the next scope level (optional)
+            node_decremental = "<BS>", -- Backspace to reduce selection
+          },
+        },
+
+        -- Configuration for textobjects, which can be used for block selection
+        textobjects = {
+          select = {
+            enable = true,
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              -- You can also use treesitter to create your own textobjects
+              -- ["iF"] = "@function.inner",
+            },
+          },
+          -- Move configuration
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
           },
         },
       })
@@ -522,8 +606,8 @@ end
 map("n", "<leader>cS", function()
   require("supermaven-nvim")
 end, { desc = "Enable Supermaven" })
--- Key mapping to toggle nvim-tree
-map("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle Nvim tree" })
+-- Key mapping to toggle neo-tree
+map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Nvim tree" })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
