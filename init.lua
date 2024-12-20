@@ -171,6 +171,10 @@ require("lazy").setup({
   -- icons
   { "nvim-tree/nvim-web-devicons", lazy = true },
   -- ui components
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+  },
   { "MunifTanjim/nui.nvim", lazy = true },
   {
     "folke/noice.nvim",
