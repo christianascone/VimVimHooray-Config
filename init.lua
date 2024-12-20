@@ -800,6 +800,17 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+-- Scroll
+map("n", "<S-Up>", ":m-2<cr>", { desc = "Move line up" })
+map("n", "<S-Up>", "<Esc>:m-2<cr>", { desc = "Move line up" })
+map("n", "<S-Down>", ":m+<cr>", { desc = "Move line down" })
+map("n", "<S-Down>", "<Esc>:m+<cr>", { desc = "Move line down" })
+map("n", "<C-S-K>", "{zz", { desc = "Go previous white line" })
+map("n", "<C-S-J>", "}zz", { desc = "Go next white line" })
+map("n", "{", "{zz", { desc = "Go previous white line" })
+map("n", "}", "}zz", { desc = "Go next white line" })
+map("n", "<C-d>", "<C-d>zz", { desc = "Page down and center" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Page up and center" })
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
