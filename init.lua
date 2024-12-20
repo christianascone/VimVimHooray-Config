@@ -659,6 +659,7 @@ require("lazy").setup({
         "google-java-format",
         "stylua",
         "pint",
+        "php_cs_fixer"
       },
     },
     config = function()
@@ -862,6 +863,17 @@ map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 map("n", "<leader>cf", function()
   require("conform").format()
 end, { desc = "Format file" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+map("n", "<leader>cA", function()
+  vim.lsp.buf.code_action({
+    context = {
+      only = {
+        "source",
+      },
+      diagnostics = {},
+    },
+  })
+end, { desc = "Source Action" })
 
 -- Highlight code when yanking
 vim.cmd([[
