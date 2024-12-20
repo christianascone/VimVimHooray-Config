@@ -654,6 +654,13 @@ require("lazy").setup({
   },
   {
     "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "google-java-format",
+        "stylua",
+        "pint",
+      },
+    },
     config = function()
       require("mason").setup()
     end,
@@ -662,7 +669,7 @@ require("lazy").setup({
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "tsserver", "jdtls", "phpactor" }, -- Add your servers here
+        ensure_installed = { "lua_ls", "jdtls", "phpactor" }, -- Add your servers here
       })
     end,
   },
