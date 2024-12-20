@@ -620,6 +620,66 @@ require("lazy").setup({
     end,
   },
   {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require("cmp").setup({
+        -- Your cmp configuration here
+      })
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+    config = function()
+      local lspconfig = require("lspconfig")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      -- Example for Lua:
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.jdtls.setup({})
+      lspconfig.phpactor.setup({})
+
+      -- Other servers here...
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "lua_ls", "tsserver", "jdtls", "phpactor" }, -- Add your servers here
+      })
+    end,
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        -- Java
+        java = { "google-java-format" },
+        -- Lua
+        lua = { "stylua" },
+        -- JavaScript
+        javascript = { "prettier" },
+        -- TypeScript
+        typescript = { "prettier" },
+        -- PHP
+        php = { "php_cs_fixer" }, -- or any other PHP formatter you prefer
+      },
+    },
+  },
+  {
     "goolord/alpha-nvim",
     event = "VimEnter",
     opts = function()
@@ -761,6 +821,20 @@ map("n", "<leader><space>", builtin.git_files, {})
 map("n", "<leader>/", builtin.live_grep, {})
 map("n", "<leader>,", builtin.buffers, {})
 
+-- Lsp
+map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+map("n", "gd", function()
+  require("telescope.builtin").lsp_definitions({ reuse_win = true })
+end, { desc = "Goto Definition" })
+map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "References" })
+map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+map("n", "gI", function()
+  require("telescope.builtin").lsp_implementations({ reuse_win = true })
+end, { desc = "Goto Implementation" })
+map("n", "gy", function()
+  require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
+end, { desc = "Goto T[y]pe Definition" })
+map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 -- Highlight code when yanking
 vim.cmd([[
   augroup highlight_yank
