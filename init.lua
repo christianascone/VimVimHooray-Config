@@ -788,6 +788,8 @@ map("n", "<leader>cS", function()
 end, { desc = "Enable Supermaven" })
 -- Key mapping to toggle neo-tree
 map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Nvim tree" })
+map("n", "<leader>+", "<C-W>v", { desc = "Split window right", remap = true })
+map("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
