@@ -839,6 +839,10 @@ map("n", "gy", function()
   require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
 end, { desc = "Goto T[y]pe Definition" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+map("n", "<leader>cf", function()
+  require("conform").format()
+end, { desc = "Format file" })
+
 -- Highlight code when yanking
 vim.cmd([[
   augroup highlight_yank
