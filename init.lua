@@ -730,7 +730,7 @@ require("lazy").setup({
         "google-java-format",
         "stylua",
         "pint",
-        "php_cs_fixer"
+        "php_cs_fixer",
       },
     },
     config = function()
