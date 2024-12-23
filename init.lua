@@ -779,7 +779,6 @@ require("lazy").setup({
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
       })
-      lspconfig.jdtls.setup({})
       lspconfig.phpactor.setup({})
 
       -- Other servers here...
@@ -793,6 +792,8 @@ require("lazy").setup({
         "stylua",
         "pint",
         "php_cs_fixer",
+        "java-debug-adapter",
+        "java-test",
       },
     },
     config = function()
@@ -823,6 +824,272 @@ require("lazy").setup({
         php = { "php_cs_fixer" }, -- or any other PHP formatter you prefer
       },
     },
+  },
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local Config = require("lazyvim.config")
+      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+
+      for name, sign in pairs(Config.icons.dap) do
+        sign = type(sign) == "table" and sign or { sign }
+        vim.fn.sign_define(
+          "Dap" .. name,
+          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+        )
+      end
+    end,
+    dependencies = {
+
+      {
+        "nvim-neotest/nvim-nio",
+      },
+      {
+        "rcarriga/nvim-dap-ui",
+        keys = {
+          {
+            "<leader>du",
+            function()
+              require("dapui").toggle({})
+            end,
+            desc = "Dap UI",
+          },
+          {
+            "<leader>dE",
+            function()
+              require("dapui").eval()
+            end,
+            desc = "Eval",
+            mode = { "n", "v" },
+          },
+        },
+
+        opts = {},
+        config = function(_, opts)
+          -- setup dap config by VsCode launch.json file
+          -- require("dap.ext.vscode").load_launchjs()
+          local dap = require("dap")
+          local dapui = require("dapui")
+          dapui.setup(opts)
+          dap.listeners.after.event_initialized["dapui_config"] = function()
+            dapui.open({})
+          end
+          dap.listeners.before.event_terminated["dapui_config"] = function()
+            dapui.close({})
+          end
+          dap.listeners.before.event_exited["dapui_config"] = function()
+            dapui.close({})
+          end
+        end,
+      },
+      -- virtual text for the debugger
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        opts = {},
+      },
+
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        opts = {
+          ensure_installed = { "java", "php", "javadbg", "javatest" },
+          handlers = {
+            php = function(config)
+              -- Uncomment this to specify the executable path
+              -- local base_path = vim.fn.stdpath("config") -- or vim.fn.getcwd() if you prefer current working directory
+              -- config.adapters = {
+              --   type = "executable",
+              --   command = string.format("%s/LSPs/vscode-php-debug/out/phpDebug.js", base_path),
+              -- }
+              config.configurations = {
+                {
+                  type = "php",
+                  request = "launch",
+                  name = "(default) Listen for Xdebug",
+                  port = 9003,
+                },
+                {
+                  name = "(default) Launch Built-in server",
+                  type = "php",
+                  request = "launch",
+                  program = "",
+                  runtimeArgs = {
+                    "-S",
+                    "localhost:8000",
+                    "-dxdebug.mode=debug",
+                    "-dxdebug.start_with_request=yes",
+                  },
+                  env = {
+                    XDEBUG_MODE = "debug",
+                    XDEBUG_SESSION = "xdebug_is_great",
+                  },
+                  port = 9003,
+                },
+                {
+                  name = "(default) Launch Built-in server in public (laravel/symfony)",
+                  type = "php",
+                  request = "launch",
+                  program = "",
+                  runtimeArgs = {
+                    "-S",
+                    "localhost:8000",
+                    "-t",
+                    "public",
+                  },
+                  port = 9003,
+                },
+                {
+                  name = "(default) Launch Built-in server in public (laravel/symfony) with debugger",
+                  type = "php",
+                  request = "launch",
+                  program = "",
+                  runtimeArgs = {
+                    "-S",
+                    "localhost:8000",
+                    "-t",
+                    "public",
+                    "-dxdebug.mode=debug",
+                    "-dxdebug.start_with_request=yes",
+                  },
+                  env = {
+                    XDEBUG_MODE = "debug",
+                    XDEBUG_SESSION = "xdebug_is_great",
+                  },
+                  port = 9003,
+                },
+                {
+                  name = "(default) Launch Built-in spark server",
+                  type = "php",
+                  request = "launch",
+                  program = "",
+                  runtimeArgs = {
+                    "spark",
+                    "serve",
+                    "-dxdebug.mode=debug",
+                    "-dxdebug.start_with_request=yes",
+                  },
+                  env = {
+                    XDEBUG_MODE = "debug",
+                    XDEBUG_SESSION = "xdebug_is_great",
+                  },
+                  port = 9003,
+                },
+                {
+                  name = "(default) Launch phpunit",
+                  type = "php",
+                  request = "launch",
+                  program = "",
+                  runtimeArgs = {
+                    "bin/phpunit",
+                    "-dxdebug.mode=debug",
+                    "-dxdebug.start_with_request=yes",
+                  },
+                  env = {
+                    XDEBUG_MODE = "debug",
+                    XDEBUG_SESSION = "xdebug_is_great",
+                  },
+                  port = 9003,
+                },
+              }
+              require("mason-nvim-dap").default_setup(config) -- don't forget this!
+            end,
+          },
+        },
+      },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "mfussenegger/nvim-jdtls",
+    },
+    config = function()
+      require("mason-lspconfig").setup_handlers({
+        jdtls = function()
+          vim.api.nvim_create_autocmd("FileType", {
+            pattern = "java",
+            callback = function()
+              -- Use Mason to get the installation paths
+              local jdtls_install = require("mason-registry").get_package("jdtls"):get_install_path()
+              local java_debug_install = require("mason-registry").get_package("java-debug-adapter"):get_install_path()
+              local java_test_install = require("mason-registry").get_package("java-test"):get_install_path()
+              local lombok_path = jdtls_install .. "/lombok.jar"
+
+              local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+              local workspace_dir = vim.fn.stdpath("data") .. "/jdtls-workspaces/" .. project_name
+
+              -- Determine the platform configuration path
+              local platform_config_path
+              if vim.fn.has("mac") == 1 then
+                platform_config_path = jdtls_install .. "/config_mac"
+              elseif vim.fn.has("unix") == 1 then
+                platform_config_path = jdtls_install .. "/config_linux"
+              else
+                platform_config_path = jdtls_install .. "/config_win"
+              end
+
+              -- Bundles for Java debugging
+              local bundles = {
+                vim.fn.glob(java_debug_install .. "/extension/server/com.microsoft.java.debug.plugin-*.jar"),
+              }
+              vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_install .. "/extension/server/*.jar"), "\n"))
+
+              local config = {
+                cmd = {
+                  "/usr/bin/java",
+                  "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+                  "-Dosgi.bundles.defaultStartLevel=4",
+                  "-Declipse.product=org.eclipse.jdt.ls.core.product",
+                  "-Dlog.protocol=true",
+                  "-Dlog.level=ALL",
+                  "-javaagent:" .. lombok_path,
+                  "-Xms1g",
+                  "--add-modules=ALL-SYSTEM",
+                  "--add-opens",
+                  "java.base/java.util=ALL-UNNAMED",
+                  "--add-opens",
+                  "java.base/java.lang=ALL-UNNAMED",
+                  "-jar",
+                  vim.fn.glob(jdtls_install .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+                  "-configuration",
+                  platform_config_path,
+                  "-data",
+                  workspace_dir,
+                },
+                root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" }),
+                settings = {
+                  java = {},
+                },
+                handlers = {
+                  ["language/status"] = function(_, result)
+                    -- print(result)
+                  end,
+                  ["$/progress"] = function(_, result, ctx)
+                    -- disable progress updates.
+                  end,
+                },
+                init_options = {
+                  bundles = bundles,
+                },
+                test = true,
+              }
+
+              config["on_init"] = function(client, bufnr)
+                -- CustomUtil.callDotenv()
+              end
+              config["on_attach"] = function(client, bufnr)
+                require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
+                require("jdtls.dap").setup_dap_main_class_configs()
+              end
+
+              require("jdtls").start_or_attach(config)
+            end,
+          })
+          return true
+        end,
+      })
+    end,
   },
   -- Finds and lists all of the TODO, HACK, BUG, etc comment
   -- in your project and loads them into a browsable list.
@@ -1024,6 +1291,39 @@ map("n", "<leader>cA", function()
     },
   })
 end, { desc = "Source Action" })
+
+-- Dap
+local dapContinue = function()
+  if vim.fn.filereadable(".vscode/launch.json") then
+    require("dap.ext.vscode").load_launchjs()
+  end
+  -- CustomUtil.callDotenv()
+  require("dap").continue()
+end
+map("n", "<F5>", dapContinue, { desc = "Debug" })
+map("n", "<F10>", function()
+  require("dap").step_over()
+end)
+map("n", "<F11>", function()
+  require("dap").step_into()
+end)
+map("n", "<F12>", function()
+  require("dap").step_out()
+end)
+map("n", "<Leader>B", function()
+  require("dap").toggle_breakpoint()
+end, { desc = "Debug: toggle breakpoint" })
+-- Disabled for conflicts
+-- map('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+map("n", "<Leader>dr", function()
+  require("dap").repl.open()
+end)
+map("n", "<Leader>dl", function()
+  require("dap").run_last()
+end)
+map({ "n", "v" }, "<Leader>dp", function()
+  require("dap.ui.widgets").preview()
+end, { desc = "Debug preview" })
 
 -- Highlight code when yanking
 vim.cmd([[
