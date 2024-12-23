@@ -484,6 +484,14 @@ require("lazy").setup({
           vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<C-j>", [[<C-\><C-n><C-w>j]], opts)
           vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<C-k>", [[<C-\><C-n><C-w>k]], opts)
           vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<C-l>", [[<C-\><C-n><C-w>l]], opts)
+          vim.api.nvim_create_autocmd("BufEnter", {
+            buffer = term.bufnr,
+            callback = function()
+              vim.defer_fn(function()
+                vim.cmd.startinsert() -- Starts insert mode
+              end, 100) -- Delay for 100ms
+            end,
+          })
         end,
         -- This field is only relevant if direction is set to 'float'
         float_opts = {
