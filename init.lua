@@ -837,18 +837,6 @@ require("lazy").setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
-    config = function()
-      local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      -- Example for Lua:
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.phpactor.setup({})
-
-      -- Other servers here...
-    end,
   },
   {
     "williamboman/mason.nvim",
@@ -1072,6 +1060,12 @@ require("lazy").setup({
     },
     config = function()
       require("mason-lspconfig").setup_handlers({
+        function(server_name)
+          local capabilities = require("cmp_nvim_lsp").default_capabilities()
+          require("lspconfig")[server_name].setup({
+            capabilities = capabilities,
+          })
+        end,
         jdtls = function()
           vim.api.nvim_create_autocmd("FileType", {
             pattern = "java",
@@ -1148,6 +1142,8 @@ require("lazy").setup({
                 require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
                 require("jdtls.dap").setup_dap_main_class_configs()
               end
+
+              config["capabilities"] = require("cmp_nvim_lsp").default_capabilities()
 
               require("jdtls").start_or_attach(config)
             end,
