@@ -194,6 +194,12 @@ require("lazy").setup({
     end,
   },
   {
+    "stevearc/overseer.nvim",
+    config = function()
+      require("overseer").setup()
+    end,
+  },
+  {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
       { "tpope/vim-dadbod", lazy = true },
@@ -1543,6 +1549,12 @@ end)
 map({ "n", "v" }, "<Leader>dp", function()
   require("dap.ui.widgets").preview()
 end, { desc = "Debug preview" })
+
+-- Overseer
+map("n", "<leader>Tt", "<cmd>OverseerToggle<cr>", { desc = "Overseer Toggle" })
+map("n", "<leader>Tr", "<cmd>OverseerRun<cr>", { desc = "Overseer Run" })
+--- DBUI
+map("n", "<leader>db", "<cmd>DBUIToggle<cr>", { desc = "DBUI Toggle" })
 
 --- Custom functions ---
 local function searchAndReplace(mode)
