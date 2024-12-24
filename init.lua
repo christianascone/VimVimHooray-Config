@@ -1320,10 +1320,11 @@ end, { noremap = true, silent = true, desc = "Toggle Lazygit" })
 
 -- Telescope
 local builtin = require("telescope.builtin")
-map("n", "<leader>ff", builtin.find_files, {})
-map("n", "<leader><space>", builtin.git_files, {})
-map("n", "<leader>/", builtin.live_grep, {})
-map("n", "<leader>,", builtin.buffers, {})
+map("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+map("n", "<leader><space>", builtin.git_files, { desc = "Git Files" })
+map("n", "<leader>/", builtin.live_grep, { desc = "Live grep" })
+map("n", "<leader>,", builtin.buffers, { desc = "Buffers" })
+map("n", "<leader>ss", builtin.lsp_document_symbols, { desc = "Goto Symbol" })
 
 -- Lsp
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
