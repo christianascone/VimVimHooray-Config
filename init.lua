@@ -512,7 +512,7 @@ require("lazy").setup({
   },
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
+    version = false,
     dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
     config = function()
       require("telescope").setup({
@@ -522,6 +522,13 @@ require("lazy").setup({
           layout_strategy = "vertical",
           layout_config = { width = 0.8 },
           file_ignore_patterns = { "node_modules" },
+          path_display = {
+            filename_first = {
+              reverse_directories = false,
+            },
+          },
+          prompt_prefix = " ",
+          selection_caret = " ",
         },
         pickers = {
           -- Default configuration for builtin pickers goes here:
