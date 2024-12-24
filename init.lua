@@ -245,6 +245,16 @@ require("lazy").setup({
       return M
     end,
   },
+  -- search/replace in multiple files
+  {
+    "nvim-pack/nvim-spectre",
+    cmd = "Spectre",
+    opts = { open_cmd = "noswapfile vnew" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>Sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+    },
+  },
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
@@ -1533,6 +1543,25 @@ end)
 map({ "n", "v" }, "<Leader>dp", function()
   require("dap.ui.widgets").preview()
 end, { desc = "Debug preview" })
+
+--- Custom functions ---
+local function searchAndReplace(mode)
+  -- Prompt user for search string
+  local search = vim.fn.input("Enter search string: ")
+
+  -- Prompt user for replace string
+  local replace = vim.fn.input("Enter replacement string: ")
+
+  -- Escape search and replace strings to handle special characters
+  search = vim.fn.escape(search, "/\\")
+  replace = vim.fn.escape(replace, "/\\")
+
+  local modifier = mode == "v" and "'<, '>" or "%"
+  -- Perform search and replace operation in current buffer
+  vim.cmd(modifier .. "s/" .. search .. "/" .. replace .. "/g")
+end
+
+map("n", "<leader>sr", searchAndReplace, { desc = "Search and replace" })
 
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
