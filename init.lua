@@ -1482,6 +1482,15 @@ map({ "n", "v" }, "<Leader>dp", function()
   require("dap.ui.widgets").preview()
 end, { desc = "Debug preview" })
 
+local function augroup(name)
+  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+end
+-- Autocmd to force refresh
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  command = "checktime",
+})
+
 -- Highlight code when yanking
 vim.cmd([[
   augroup highlight_yank
