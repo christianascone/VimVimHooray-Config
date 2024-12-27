@@ -11,6 +11,7 @@ return {
       require("nvim-treesitter.configs").setup({
         -- A list of parsers you want to ensure are installed (sync with :TSInstall)
         ensure_installed = {
+          "blade",
           "c",
           "lua",
           "http",
@@ -22,6 +23,8 @@ return {
           "python",
           "java",
           "php",
+          "html",
+          "php_only",
         },
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -85,6 +88,27 @@ return {
             },
           },
         },
+      })
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+      parser_config.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = { "src/parser.c" },
+          branch = "v0.11.0",
+        },
+        filetype = "blade",
+      }
+
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
+      })
+
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+        pattern = { "*.norg" },
+        command = "set conceallevel=3",
       })
     end,
   },
