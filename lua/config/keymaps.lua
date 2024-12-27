@@ -13,9 +13,10 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 -- Supermaven
-map("n", "<leader>cS", function()
-  require("supermaven-nvim")
-end, { desc = "Enable Supermaven" })
+map('n', '<leader>cS', function()
+  require("lazy").load({plugins = {'supermaven-nvim'}})
+  vim.notify('Supermaven loaded', vim.log.levels.INFO)
+end, { desc = "Enable Supermaven"})
 -- Key mapping to toggle neo-tree
 map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Nvim tree" })
 map("n", "<leader>+", "<C-W>v", { desc = "Split window right", remap = true })
