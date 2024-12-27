@@ -91,6 +91,8 @@ return {
       })
       local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
+      -- Useful tips for tree-sitter-blade
+      -- https://github.com/EmranMR/tree-sitter-blade/discussions/19
       parser_config.blade = {
         install_info = {
           url = "https://github.com/EmranMR/tree-sitter-blade",
