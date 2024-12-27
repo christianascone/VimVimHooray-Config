@@ -4,6 +4,7 @@ return {
     opts = {
       ensure_installed = {
         "google-java-format",
+        "prettierd",
         "stylua",
         "pint",
         "php_cs_fixer",
