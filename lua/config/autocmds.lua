@@ -104,3 +104,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+-- autoindent for php
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "php",
+  callback = function()
+    vim.bo.autoindent = true
+    vim.bo.smartindent = true
+  end,
+})
