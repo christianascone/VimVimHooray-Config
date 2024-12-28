@@ -8,7 +8,7 @@ return {
         javascript = { "prettierd" },
         typescript = { "prettierd" },
         json = { "prettierd" },
-        php = { "php_cs_fixer" }, -- or any other PHP formatter you prefer
+        php = { "pint" }, -- or any other PHP formatter you prefer
       },
     },
   },
