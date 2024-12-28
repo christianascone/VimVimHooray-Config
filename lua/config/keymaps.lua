@@ -13,10 +13,10 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 -- Supermaven
-map('n', '<leader>cS', function()
-  require("lazy").load({plugins = {'supermaven-nvim'}})
-  vim.notify('Supermaven loaded', vim.log.levels.INFO)
-end, { desc = "Enable Supermaven"})
+map("n", "<leader>cS", function()
+  require("lazy").load({ plugins = { "supermaven-nvim" } })
+  vim.notify("Supermaven loaded", vim.log.levels.INFO)
+end, { desc = "Enable Supermaven" })
 -- Key mapping to toggle neo-tree
 map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Nvim tree" })
 map("n", "<leader>+", "<C-W>v", { desc = "Split window right", remap = true })
@@ -81,7 +81,12 @@ map("n", "<leader>gg", function()
 end, { noremap = true, silent = true, desc = "Toggle Lazygit" })
 -- Telescope
 local builtin = require("telescope.builtin")
-map("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+map("n", "<leader>ff", function()
+  builtin.find_files({
+    no_ignore = true, -- Include files ignored by .gitignore
+    hidden = true, -- Include hidden files
+  })
+end, { desc = "Find Files" })
 map("n", "<leader><space>", builtin.git_files, { desc = "Git Files" })
 map("n", "<leader>/", builtin.live_grep, { desc = "Live grep" })
 map("n", "<leader>,", builtin.buffers, { desc = "Buffers" })
