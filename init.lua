@@ -13,6 +13,7 @@ vim.opt.showmode = false -- Dont show mode since we have a statusline
 vim.opt.expandtab = true -- On pressing tab, insert 4 spaces
 vim.opt.smarttab = true -- Makes tabbing smarter
 vim.opt.autoindent = true -- Good auto indent
+vim.opt.shiftround = true -- Round indent
 vim.opt.smartindent = true -- Makes indenting smart
 vim.opt.wrap = false -- No Wrap lines
 vim.opt.backspace = "indent,eol,start" -- Allow backspace over everything in insert mode
