@@ -119,6 +119,8 @@ map("n", "<leader>cA", function()
     },
   })
 end, { desc = "Source Action" })
+map("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename" })
+
 -- Dap
 local dapContinue = function()
   if vim.fn.filereadable(".vscode/launch.json") then
