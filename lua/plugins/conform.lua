@@ -7,6 +7,7 @@ return {
         lua = { "stylua" },
         javascript = { "prettierd" },
         typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
         json = { "prettierd" },
         php = { "pint" }, -- or any other PHP formatter you prefer
       },
