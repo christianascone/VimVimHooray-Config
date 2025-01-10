@@ -7,7 +7,7 @@ return {
       {
         "<leader>up",
         function()
-          local Util = require("lazy.core.util")
+          local Util = require("util")
           vim.g.minipairs_disable = not vim.g.minipairs_disable
           if vim.g.minipairs_disable then
             Util.warn("Disabled auto pairs", { title = "Option" })
