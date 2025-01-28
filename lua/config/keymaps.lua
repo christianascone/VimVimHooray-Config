@@ -155,6 +155,10 @@ map("n", "<leader>Tr", "<cmd>OverseerRun<cr>", { desc = "Overseer Run" })
 map("n", "<leader>db", "<cmd>DBUIToggle<cr>", { desc = "DBUI Toggle" })
 --- Rest
 map("n", "<leader>Rr", "<cmd>Rest run<cr>", { desc = "Rest: run" })
+-- better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 --- Custom functions ---
 local function searchAndReplace(mode)
   -- Prompt user for search string
