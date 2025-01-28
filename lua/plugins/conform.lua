@@ -10,6 +10,8 @@ return {
         typescriptreact = { "prettierd" },
         json = { "prettierd" },
         php = { "pint" }, -- or any other PHP formatter you prefer
+        python = { "black" },
+        xml = { "xmlformatter" },
       },
     },
   },
