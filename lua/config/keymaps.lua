@@ -44,7 +44,8 @@ map("n", "<leader>bO", "<cmd>BufferLineCloseOthers<cr>", { desc = "Close other b
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 -- Custom key mappings for horizontal and vertical terminals
 map("n", "<leader>th", function()
-  vim.cmd("ToggleTerm direction=horizontal")
+  local count = vim.v.count
+  vim.cmd(count .. "ToggleTerm direction=horizontal")
 end, { desc = "Toggle terminal (horizontal)" })
 map("n", "<leader>tv", function()
   vim.cmd("ToggleTerm direction=vertical")
