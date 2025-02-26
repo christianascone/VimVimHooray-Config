@@ -12,6 +12,9 @@ return {
         php = { "pint" }, -- or any other PHP formatter you prefer
         python = { "black" },
         xml = { "xmlformatter" },
+        html = { "htmlbeautifier" },
+        bash = { "shfmt" },
+        sh = { "shfmt" },
       },
     },
   },
