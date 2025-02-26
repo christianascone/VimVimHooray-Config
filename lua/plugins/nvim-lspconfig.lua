@@ -1,3 +1,4 @@
+local Util = require "util.init"
 return {
   {
     "neovim/nvim-lspconfig",
@@ -80,7 +81,7 @@ return {
                 test = true,
               }
               config["on_init"] = function(client, bufnr)
-                -- CustomUtil.callDotenv()
+                Util.callDotenv()
               end
               config["on_attach"] = function(client, bufnr)
                 require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
