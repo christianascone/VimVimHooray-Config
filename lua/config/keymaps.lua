@@ -1,3 +1,4 @@
+local Util = require("util")
 -- Shortend for keymap
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}
@@ -8,10 +9,7 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 -- Supermaven
-map("n", "<leader>cS", function()
-  require("lazy").load({ plugins = { "supermaven-nvim" } })
-  vim.notify("Supermaven loaded", vim.log.levels.INFO)
-end, { desc = "Enable Supermaven" })
+map("n", "<leader>cS", Util.load_plugin("supermaven-nvim", "Supermaven"), { desc = "Toggle Supermaven" })
 map("n", "<leader>CS", function()
   require("lazy").load({ plugins = { "codesnap.nvim" } })
   vim.notify("CodeSnap loaded", vim.log.levels.INFO)

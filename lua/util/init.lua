@@ -121,4 +121,11 @@ function M.callDotenv()
   end
 end
 
+function M.load_plugin(plugin, name)
+  return function()
+    require("lazy").load({ plugins = { plugin } })
+    vim.notify(name .. " loaded", vim.log.levels.INFO)
+  end
+end
+
 return M
