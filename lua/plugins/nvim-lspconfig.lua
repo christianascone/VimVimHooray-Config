@@ -1,4 +1,4 @@
-local Util = require "util.init"
+local Util = require("util.init")
 return {
   {
     "neovim/nvim-lspconfig",
@@ -86,6 +86,24 @@ return {
               config["on_attach"] = function(client, bufnr)
                 require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
                 require("jdtls.dap").setup_dap_main_class_configs()
+                vim.keymap.set(
+                  "n",
+                  "<leader>dt",
+                  "<Cmd>lua require'jdtls'.test_class()<CR>",
+                  { buffer = bufnr, desc = "Test Class" }
+                )
+                vim.keymap.set(
+                  "n",
+                  "<leader>dn",
+                  "<Cmd>lua require'jdtls'.test_nearest_method()<CR>",
+                  { buffer = bufnr, desc = "Test Nearest Method" }
+                )
+                vim.keymap.set(
+                  "n",
+                  "<leader>cc",
+                  "<Cmd>lua require('jdtls').compile('full')<CR>",
+                  { buffer = bufnr, desc = "Compile" }
+                )
               end
               config["capabilities"] = require("cmp_nvim_lsp").default_capabilities()
               require("jdtls").start_or_attach(config)
