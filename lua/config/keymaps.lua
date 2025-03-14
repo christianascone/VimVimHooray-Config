@@ -10,6 +10,7 @@ local function map(mode, lhs, rhs, opts)
 end
 -- Supermaven
 map("n", "<leader>cS", Util.load_plugin("supermaven-nvim", "Supermaven"), { desc = "Toggle Supermaven" })
+map("n", "<leader>cc", Util.load_plugin("codecompanion.nvim", "Codecompanion"), { desc = "Toggle Codecompanion" })
 map("n", "<leader>CS", function()
   require("lazy").load({ plugins = { "codesnap.nvim" } })
   vim.notify("CodeSnap loaded", vim.log.levels.INFO)
