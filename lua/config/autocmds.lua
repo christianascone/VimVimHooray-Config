@@ -117,3 +117,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_buf_set_option(bufnr, "foldtext", "foldtext()")
   end,
 })
+
+-- Notification when recording starts
+vim.api.nvim_create_autocmd("RecordingEnter", {
+  callback = function()
+    vim.notify("Starting macro recording.", vim.log.levels.INFO)
+  end,
+})
