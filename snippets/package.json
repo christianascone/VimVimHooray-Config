@@ -1,0 +1,19 @@
+{
+  "name": "custom-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "php"
+        ],
+        "path": "php.json"
+      },
+      {
+        "language": [
+          "java"
+        ],
+        "path": "java.json"
+      }
+    ]
+  }
+}
