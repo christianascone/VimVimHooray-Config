@@ -76,12 +76,18 @@ sed -i '' "s/project-\(.*\)-\(.*\)/project-$new_version-\2/" README.md
 echo "## Version $new_version" > new_changelog.md
 echo "" >> new_changelog.md
 echo "### BREAKING CHANGES" >> new_changelog.md
+echo '```markdown' >> new_changelog.md
 git log --pretty=format:"%s" main..HEAD | grep "^BREAKING CHANGE" >> new_changelog.md
+echo '```' >> new_changelog.md
 echo "### Features" >> new_changelog.md
+echo '```markdown' >> new_changelog.md
 git log --pretty=format:"%s" main..HEAD | grep "^feat" >> new_changelog.md
+echo '```' >> new_changelog.md
 echo "" >> new_changelog.md
 echo "### Fixes" >> new_changelog.md
+echo '```markdown' >> new_changelog.md
 git log --pretty=format:"%s" main..HEAD | grep "^fix" >> new_changelog.md
+echo '```' >> new_changelog.md
 echo "" >> new_changelog.md
 if [ -f changelog.md ]; then
     cat changelog.md >> new_changelog.md
