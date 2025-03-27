@@ -67,7 +67,7 @@ new_version=$(increment_version "$current_version" "$1")
 
 # Create a new git branch for the release
 branch_name="release/$new_version"
-# git checkout -b "$branch_name"
+git checkout -b "$branch_name"
 
 # Update README.md with the new version (macOS-compatible sed -i)
 sed -i '' "s/project-\(.*\)-\(.*\)/project-$new_version-\2/" README.md
