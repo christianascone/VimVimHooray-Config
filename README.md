@@ -1,6 +1,6 @@
 # **:triangular_flag_on_post: VimVimHooray Config**
 
-![project version](https://img.shields.io/badge/project-0.0.1-brightgreen.svg)
+![project version](https://img.shields.io/badge/project-1.0.0-brightgreen.svg)
 
 > My LazyVim based setup for Neovim
 
