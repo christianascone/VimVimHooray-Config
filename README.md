@@ -78,8 +78,7 @@ Please :star: this repository if you like it or this project helped you!Feel fre
 
 ### **:scroll: Release history**
 
-* 0.0.1
-    * Work in progress
+Check the [changelog](changelog).
 
 ---
 
