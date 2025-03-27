@@ -78,7 +78,7 @@ Please :star: this repository if you like it or this project helped you!Feel fre
 
 ### **:scroll: Release history**
 
-Check the [changelog](changelog).
+Check the [changelog](changelog.md).
 
 ---
 
