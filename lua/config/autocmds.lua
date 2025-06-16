@@ -124,3 +124,11 @@ vim.api.nvim_create_autocmd("RecordingEnter", {
     vim.notify("Starting macro recording.", vim.log.levels.INFO)
   end,
 })
+
+-- Dart: commentstring
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dart",
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end
+})
