@@ -8,7 +8,7 @@ return {
         defaults = {
           -- Default configuration for telescope goes here:
           -- set layout, previewer, etc.
-          layout_strategy = "vertical",
+          layout_strategy = "horizontal",
           layout_config = { width = 0.8 },
           file_ignore_patterns = { "node_modules" },
           path_display = {
