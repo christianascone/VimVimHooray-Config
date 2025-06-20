@@ -82,7 +82,6 @@ end, { noremap = true, silent = true, desc = "Toggle Lazygit" })
 local builtin = require("telescope.builtin")
 map("n", "<leader>ff", function()
   builtin.find_files({
-    no_ignore = true, -- Include files ignored by .gitignore
     hidden = true, -- Include hidden files
   })
 end, { desc = "Find Files" })
