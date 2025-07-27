@@ -1,3 +1,22 @@
+## Version 1.1.0
+
+### BREAKING CHANGES
+```
+BREAKING CHANGE: remove codecompanion, codeium and copilot
+```
+### Features
+```
+feat: update a few plugins
+feat: add dartls and dart_format
+```
+
+### Fixes
+```
+fix: commentstring for dart files
+fix: changelog generator
+fix: changelog generator
+```
+
 ## Version 1.0.0
 
 ### BREAKING CHANGES
