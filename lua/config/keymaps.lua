@@ -10,7 +10,6 @@ local function map(mode, lhs, rhs, opts)
 end
 -- Supermaven
 map("n", "<leader>cS", Util.load_plugin("supermaven-nvim", "Supermaven"), { desc = "Toggle Supermaven" })
-map("n", "<leader>cc", Util.load_plugin("codecompanion.nvim", "Codecompanion"), { desc = "Toggle Codecompanion" })
 map("n", "<leader>CS", function()
   require("lazy").load({ plugins = { "codesnap.nvim" } })
   vim.notify("CodeSnap loaded", vim.log.levels.INFO)
@@ -82,7 +81,6 @@ end, { noremap = true, silent = true, desc = "Toggle Lazygit" })
 local builtin = require("telescope.builtin")
 map("n", "<leader>ff", function()
   builtin.find_files({
-    no_ignore = true, -- Include files ignored by .gitignore
     hidden = true, -- Include hidden files
   })
 end, { desc = "Find Files" })

@@ -1,11 +1,33 @@
+## Version 1.1.0
+
+### BREAKING CHANGES
+```
+BREAKING CHANGE: remove codecompanion, codeium and copilot
+```
+### Features
+```
+feat: update a few plugins
+feat: add dartls and dart_format
+```
+
+### Fixes
+```
+fix: commentstring for dart files
+fix: changelog generator
+fix: changelog generator
+```
+
 ## Version 1.0.0
 
 ### BREAKING CHANGES
+```
 BREAKING CHANGE: split configuration in multiple files
 BREAKING CHANGE: remove old files and add first init file setup
 BREAKING CHANGE: update mason dependencies
 BREAKING CHANGE: remove folke/flash plugin
+```
 ### Features
+```
 feat: set claude sonnet 3.5 as model for codecompanion
 feat: add friendly-snippets
 feat: add codecompanion
@@ -73,8 +95,10 @@ feat: add foreach snippet for php
 feat: add shortcut for rest.nvvim
 feat: add php snippets
 feat: add php formatter
+```
 
 ### Fixes
+```
 fix: permissions on bump version script
 fix: group mappings for which-key
 fix: slow toggleterm for large buffers
@@ -95,4 +119,4 @@ fix: conflicting keymaps
 fix: conflicting keymaps
 fix: hotcodereplace for jdtls
 fix(snippets): log error prefix
-
+```

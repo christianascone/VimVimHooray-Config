@@ -5,6 +5,7 @@ return {
       formatters_by_ft = {
         java = { "google-java-format" },
         lua = { "stylua" },
+        dart = { "dart_format" },
         javascript = { "prettierd" },
         typescript = { "prettierd" },
         typescriptreact = { "prettierd" },

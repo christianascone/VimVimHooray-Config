@@ -8,7 +8,7 @@ return {
         defaults = {
           -- Default configuration for telescope goes here:
           -- set layout, previewer, etc.
-          layout_strategy = "vertical",
+          layout_strategy = "horizontal",
           layout_config = { width = 0.8 },
           file_ignore_patterns = { "node_modules" },
           path_display = {
@@ -20,6 +20,15 @@ return {
           selection_caret = " ",
         },
         pickers = {
+          find_files = {
+            find_command = {
+              "rg",
+              "--files",
+              "--color=never",
+              "--glob=!.git/*",
+              "--glob=!Library/*",
+            },
+          },
           -- Default configuration for builtin pickers goes here:
           -- picker_name = {
           --   picker_config_key = value,
@@ -36,8 +45,8 @@ return {
             case_mode = "smart_case", -- or "ignore_case" or "respect_case"
           },
         },
-        require("telescope").load_extension("fzf"),
       })
+      require("telescope").load_extension("fzf")
     end,
   },
 }
