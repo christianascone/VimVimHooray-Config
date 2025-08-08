@@ -10,6 +10,7 @@ return {
         "php_cs_fixer",
         "java-debug-adapter",
         "java-test",
+        "jdtls"
       },
     },
     config = function()
