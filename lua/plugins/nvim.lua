@@ -7,6 +7,7 @@ return {
       vim.cmd.colorscheme("catppuccin")
     end,
     opts = {
+      transparent_background = false, -- disables setting the background color.
       integrations = {
         alpha = true,
         cmp = true,
