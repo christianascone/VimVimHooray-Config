@@ -59,9 +59,9 @@
 ## 📋 Quick Action Items
 
 ### Do First (30 minutes) 🔴
-- [ ] Fix mason.nvim opts passing
-- [ ] Add error handling to telescope require
-- [ ] Remove duplicate highlight_yank autocmd
+- [ ] Fix mason.nvim opts passing (`lua/plugins/mason.lua:16-18`)
+- [ ] Add error handling to telescope require (`lua/config/keymaps.lua:81`)
+- [ ] Remove duplicate highlight_yank autocmd (`init.lua:91-96`)
 
 ### Do Soon (2-4 hours) 🟡
 - [ ] Make bump_version.sh cross-platform
@@ -148,6 +148,6 @@ If you have questions about the review:
 
 ---
 
-**Review Date:** October 2025  
+**Review Date:** October 24, 2025  
 **Reviewed By:** GitHub Copilot  
 **Review Type:** Comprehensive code quality and best practices review
