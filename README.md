@@ -1,8 +1,16 @@
 # **:triangular_flag_on_post: VimVimHooray Config**
 
 ![project version](https://img.shields.io/badge/project-1.1.0-brightgreen.svg)
+![review status](https://img.shields.io/badge/review-4%2F5%20stars-brightgreen.svg)
 
 > My LazyVim based setup for Neovim
+
+## **:clipboard: Code Review Available**
+
+A comprehensive code review has been completed for this configuration. Check out:
+- **[REVIEW_SUMMARY.md](REVIEW_SUMMARY.md)** - Quick overview and key findings
+- **[CODE_REVIEW.md](CODE_REVIEW.md)** - Detailed 400+ line analysis
+- **[IMPROVEMENTS_CHECKLIST.md](IMPROVEMENTS_CHECKLIST.md)** - Actionable improvement items
 
 ---
 
