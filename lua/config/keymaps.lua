@@ -9,7 +9,7 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 -- Supermaven
-map("n", "<leader>cS", Util.load_plugin("supermaven-nvim", "Supermaven"), { desc = "Toggle Supermaven" })
+map("n", "<leader>cS", Util.load_plugin("copilot.vim", "Copilot"), { desc = "Toggle Copilot" })
 map("n", "<leader>CS", function()
   require("lazy").load({ plugins = { "codesnap.nvim" } })
   vim.notify("CodeSnap loaded", vim.log.levels.INFO)
