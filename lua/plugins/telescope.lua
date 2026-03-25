@@ -20,15 +20,6 @@ return {
           selection_caret = " ",
         },
         pickers = {
-          find_files = {
-            find_command = {
-              "rg",
-              "--files",
-              "--color=never",
-              "--glob=!.git/*",
-              "--glob=!Library/*",
-            },
-          },
           -- Default configuration for builtin pickers goes here:
           -- picker_name = {
           --   picker_config_key = value,
