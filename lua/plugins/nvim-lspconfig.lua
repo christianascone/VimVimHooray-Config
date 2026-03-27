@@ -10,7 +10,7 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "jdtls@v1.43.0", "phpactor"  },
+        ensure_installed = { "lua_ls", "jdtls@v1.43.0", "phpactor", "copilot" },
         automatic_installation = true,
         automatic_enable = true,
       })
