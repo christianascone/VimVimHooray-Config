@@ -120,6 +120,13 @@ return {
     },
   },
   settings = {
+    github = {
+      copilot = {
+        nextEditSuggestions = {
+          enabled = true,
+        },
+      },
+    },
     telemetry = {
       telemetryLevel = 'all',
     },
