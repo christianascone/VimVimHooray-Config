@@ -23,11 +23,16 @@ return {
       elseif mlsp.get_installed then
         servers = mlsp.get_installed()
       end
+
+      local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
       for _, server_name in ipairs(servers) do
-        vim.lsp.config(server_name, {
-          capabilities = capabilities,
-        })
-        vim.lsp.enable(server_name)
+        if lspconfig_ok and lspconfig[server_name] then
+          lspconfig[server_name].setup({
+            capabilities = capabilities,
+          })
+        else
+          vim.notify("lspconfig: no handler for " .. server_name, vim.log.levels.DEBUG)
+        end
       end
 
       -- jdtls special handling
