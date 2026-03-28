@@ -26,11 +26,29 @@ return {
 
       local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
       for _, server_name in ipairs(servers) do
+        local handled = false
         if lspconfig_ok and lspconfig[server_name] then
           lspconfig[server_name].setup({
             capabilities = capabilities,
           })
-        else
+          handled = true
+        end
+
+        if not handled then
+          -- Fallback to vim.lsp.config for servers not provided by nvim-lspconfig configs (e.g., copilot)
+          if vim.lsp and vim.lsp.config then
+            vim.lsp.config(server_name, {
+              capabilities = capabilities,
+            })
+            -- enable the server registered via vim.lsp.config
+            if vim.lsp.enable then
+              vim.lsp.enable(server_name)
+            end
+            handled = true
+          end
+        end
+
+        if not handled then
           vim.notify("lspconfig: no handler for " .. server_name, vim.log.levels.DEBUG)
         end
       end
