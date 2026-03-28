@@ -9,7 +9,10 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 -- Supermaven
-map("n", "<leader>cS", Util.load_plugin("copilot.vim", "Copilot"), { desc = "Toggle Copilot" })
+map("n", "<leader>cS", function()
+  require("sidekick.nes").toggle()
+  vim.notify("Sidekick toggle", vim.log.levels.INFO)
+end, { desc = "Toggle Sidekick NES" })
 map("n", "<leader>CS", function()
   require("lazy").load({ plugins = { "codesnap.nvim" } })
   vim.notify("CodeSnap loaded", vim.log.levels.INFO)
