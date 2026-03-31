@@ -9,9 +9,26 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 -- Supermaven
+-- NES starts disabled (sidekick opts.nes.enabled = false); track state to sync copilot LSP
+local _nes_enabled = false
 map("n", "<leader>cS", function()
+  _nes_enabled = not _nes_enabled
   require("sidekick.nes").toggle()
-  vim.notify("Sidekick toggle", vim.log.levels.INFO)
+  if _nes_enabled then
+    if vim.lsp and vim.lsp.enable then
+      vim.lsp.enable("copilot")
+    end
+    vim.notify("Sidekick NES enabled", vim.log.levels.INFO)
+  else
+    -- Stop running copilot clients and prevent new ones from starting
+    if vim.lsp and vim.lsp.enable then
+      vim.lsp.enable("copilot", false)
+    end
+    for _, client in ipairs(vim.lsp.get_clients({ name = "copilot" })) do
+      client.stop()
+    end
+    vim.notify("Sidekick NES disabled", vim.log.levels.INFO)
+  end
 end, { desc = "Toggle Sidekick NES" })
 map("n", "<leader>CS", function()
   require("lazy").load({ plugins = { "codesnap.nvim" } })

@@ -12,7 +12,10 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "jdtls@v1.43.0", "phpactor", "copilot" },
         automatic_installation = true,
-        automatic_enable = true,
+        -- copilot is enabled lazily when sidekick loads
+        automatic_enable = {
+          exclude = { "copilot" },
+        },
       })
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -34,21 +37,24 @@ return {
       end
 
       for _, server_name in ipairs(servers) do
-        if lspconfig_ok and configs and configs[server_name] then
-          lspconfig[server_name].setup({
-            capabilities = capabilities,
-          })
-        else
-          -- Fallback to vim.lsp.config for servers not provided by nvim-lspconfig configs (e.g., copilot)
-          if vim.lsp and vim.lsp.config then
-            vim.lsp.config(server_name, {
+        -- copilot is enabled lazily when sidekick loads
+        if server_name ~= "copilot" then
+          if lspconfig_ok and configs and configs[server_name] then
+            lspconfig[server_name].setup({
               capabilities = capabilities,
             })
-            if vim.lsp.enable then
-              vim.lsp.enable(server_name)
-            end
           else
-            vim.notify("lspconfig: no handler for " .. server_name, vim.log.levels.DEBUG)
+            -- Fallback to vim.lsp.config for servers not provided by nvim-lspconfig configs
+            if vim.lsp and vim.lsp.config then
+              vim.lsp.config(server_name, {
+                capabilities = capabilities,
+              })
+              if vim.lsp.enable then
+                vim.lsp.enable(server_name)
+              end
+            else
+              vim.notify("lspconfig: no handler for " .. server_name, vim.log.levels.DEBUG)
+            end
           end
         end
       end
