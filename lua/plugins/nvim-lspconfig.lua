@@ -10,7 +10,7 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "jdtls@v1.43.0", "phpactor", "copilot" },
+        ensure_installed = { "lua_ls", "jdtls@v1.58.0", "phpactor", "copilot" },
         automatic_installation = true,
         -- copilot is enabled lazily when sidekick loads
         automatic_enable = {
@@ -38,7 +38,8 @@ return {
 
       for _, server_name in ipairs(servers) do
         -- copilot is enabled lazily when sidekick loads
-        if server_name ~= "copilot" then
+        -- jdtls is managed separately via nvim-jdtls in the FileType autocmd below.
+        if server_name ~= "copilot" and server_name ~= "jdtls" then
           if lspconfig_ok and configs and configs[server_name] then
             lspconfig[server_name].setup({
               capabilities = capabilities,
@@ -63,10 +64,20 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "java",
         callback = function()
-          -- Use Mason to get the installation paths
-          local jdtls_install = require("mason-registry").get_package("jdtls"):get_install_path()
-          local java_debug_install = require("mason-registry").get_package("java-debug-adapter"):get_install_path()
-          local java_test_install = require("mason-registry").get_package("java-test"):get_install_path()
+          -- Use Mason to get installation paths, compatible with older/newer APIs.
+          local registry = require("mason-registry")
+          local mason_settings = require("mason.settings")
+          local function get_mason_package_path(package_name)
+            local package = registry.get_package(package_name)
+            if package and type(package.get_install_path) == "function" then
+              return package:get_install_path()
+            end
+            return mason_settings.current.install_root_dir .. "/packages/" .. package_name
+          end
+
+          local jdtls_install = get_mason_package_path("jdtls")
+          local java_debug_install = get_mason_package_path("java-debug-adapter")
+          local java_test_install = get_mason_package_path("java-test")
           local lombok_path = jdtls_install .. "/lombok.jar"
           local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
           local workspace_dir = vim.fn.stdpath("data") .. "/jdtls-workspaces/" .. project_name
@@ -79,14 +90,24 @@ return {
           else
             platform_config_path = jdtls_install .. "/config_win"
           end
-          -- Bundles for Java debugging
-          local bundles = {
-            vim.fn.glob(java_debug_install .. "/extension/server/com.microsoft.java.debug.plugin-*.jar"),
-          }
-          vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_install .. "/extension/server/*.jar"), "\n"))
+          -- Bundles for Java debugging/test support.
+          local bundles = {}
+          vim.list_extend(
+            bundles,
+            vim.fn.glob(java_debug_install .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", false, true)
+          )
+          vim.list_extend(bundles, vim.fn.glob(java_test_install .. "/extension/server/*.jar", false, true))
+          bundles = vim.tbl_filter(function(bundle)
+            return type(bundle) == "string" and bundle ~= ""
+          end, bundles)
+
+          local java_bin = vim.fn.exepath("java")
+          if java_bin == nil or java_bin == "" then
+            java_bin = "/usr/bin/java"
+          end
           local config = {
             cmd = {
-              "/usr/bin/java",
+              java_bin,
               "-Declipse.application=org.eclipse.jdt.ls.core.id1",
               "-Dosgi.bundles.defaultStartLevel=4",
               "-Declipse.product=org.eclipse.jdt.ls.core.product",
