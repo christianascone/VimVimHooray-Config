@@ -138,5 +138,9 @@ return {
     vim.api.nvim_buf_create_user_command(bufnr, 'LspCopilotSignOut', function()
       sign_out(bufnr, client)
     end, { desc = 'Sign out Copilot with GitHub' })
+
+    if vim.lsp.inline_completion and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+      vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+    end
   end,
 }
