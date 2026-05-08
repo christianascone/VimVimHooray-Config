@@ -12,10 +12,10 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "jdtls@v1.58.0", "phpactor", "copilot" },
         automatic_installation = true,
-        -- copilot is enabled lazily when sidekick loads
-        automatic_enable = {
-          exclude = { "copilot" },
-        },
+        -- Avoid auto-enabling via vim.lsp.enable() because some default configs
+        -- expose nested root_markers that currently break :checkhealth lsp.
+        -- We configure/attach servers explicitly below instead.
+        automatic_enable = false,
       })
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -27,35 +27,40 @@ return {
         servers = mlsp.get_installed()
       end
 
-      local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
-      local configs = nil
-      if lspconfig_ok then
-        local ok, c = pcall(require, "lspconfig.configs")
-        if ok then
-          configs = c
+      local function normalize_root_markers(root_markers)
+        if type(root_markers) ~= "table" or type(root_markers[1]) ~= "table" then
+          return root_markers
         end
+
+        local flattened = {}
+        for _, marker in ipairs(root_markers) do
+          if type(marker) == "table" then
+            for _, nested in ipairs(marker) do
+              if type(nested) == "string" and nested ~= "" then
+                flattened[#flattened + 1] = nested
+              end
+            end
+          elseif type(marker) == "string" and marker ~= "" then
+            flattened[#flattened + 1] = marker
+          end
+        end
+        return flattened
       end
 
       for _, server_name in ipairs(servers) do
         -- copilot is enabled lazily when sidekick loads
         -- jdtls is managed separately via nvim-jdtls in the FileType autocmd below.
         if server_name ~= "copilot" and server_name ~= "jdtls" then
-          if lspconfig_ok and configs and configs[server_name] then
-            lspconfig[server_name].setup({
+          if vim.lsp and vim.lsp.config and vim.lsp.enable then
+            local existing = vim.lsp.config[server_name]
+            local root_markers = existing and existing.root_markers or nil
+            vim.lsp.config(server_name, {
               capabilities = capabilities,
+              root_markers = normalize_root_markers(root_markers),
             })
+            vim.lsp.enable(server_name)
           else
-            -- Fallback to vim.lsp.config for servers not provided by nvim-lspconfig configs
-            if vim.lsp and vim.lsp.config then
-              vim.lsp.config(server_name, {
-                capabilities = capabilities,
-              })
-              if vim.lsp.enable then
-                vim.lsp.enable(server_name)
-              end
-            else
-              vim.notify("lspconfig: no handler for " .. server_name, vim.log.levels.DEBUG)
-            end
+            vim.notify("lspconfig: no handler for " .. server_name, vim.log.levels.DEBUG)
           end
         end
       end
