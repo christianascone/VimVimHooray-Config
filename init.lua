@@ -87,6 +87,7 @@ require("lazy").setup({
 })
 require("config.keymaps")
 require("config.autocmds")
+require("config.lsp-cleanup")
 -- Highlight code when yanking
 vim.cmd([[
   augroup highlight_yank
