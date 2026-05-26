@@ -12,6 +12,13 @@ return {
           backend = "tmux",
           enabled = true,
         },
+        tools = {
+          freebuff = {
+            cmd = { "freebuff" },
+            name = "FreeBuff",
+            icon = "   ",
+          },
+        },
       },
     },
     keys = {
